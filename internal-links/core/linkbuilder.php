@@ -186,10 +186,10 @@ class LinkBuilder implements Text_To_Link_Converter_Interface
     /**
      * Return the linked content.
      *
-     * @param string $content
-     * @return string
+     * @param mixed $content The content value passed to cache link value into
+     * @return mixed 		 Mixed return value to cater different content compatibilities
      */
-    public function link_content(string $content): string
+    public function link_content($content)
     {
         return $this->linkContent($content);
     }

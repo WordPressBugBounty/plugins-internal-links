@@ -20,13 +20,15 @@ class Timeout_Monitor_Layer extends Layer
     /**
      * Return the linked content.
      *
-     * @param string $content The input content.
-     * @return string
+     * @param mixed $content The input content.
+     * @return mixed  		 Mixed return value to cater different content compatibilities
      */
-    public function link_content(string $content): string
+    public function link_content($content)
     {
-        // If empty, don't pass it to other layers.
-        if (empty(trim($content))) {
+        if (is_array($content) && empty($content)) {
+            return $content;
+        } elseif (is_string($content) && empty(trim($content))) {
+            // If empty, don't pass it to other layers.
             return $content;
         }
         $start_time = time();

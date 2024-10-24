@@ -68,7 +68,7 @@ class Options
     }
     public function __construct()
     {
-        $this->sections = array(self::ILJ_OPTION_SECTION_GENERAL => array('options' => array(new Options\KeepSettings(), new Options\HideStatusBar(), new Options\SchedulerBatchSize(), new Options\EditorRole(), new Options\IndexGeneration())), self::ILJ_OPTION_SECTION_CONTENT => array('options' => array(new Options\Whitelist(), new Options\TaxonomyWhitelist(), new Options\Blacklist(), new Options\BlacklistChildPages(), new Options\TermBlacklist(), new Options\KeywordOrder(), new Options\LinksPerPage(), new Options\LinksPerParagraphSwitch(), new Options\LinksPerParagraph(), new Options\LinksPerTarget(), new Options\Limit_Incoming_Links(), new Options\Max_Incoming_Links(), new Options\MultipleKeywords(), new Case_Sensitive_Mode_Switch(), new Options\NoLinkTags(), new Options\RespectExistingLinks(), new Options\LimitTaxonomyList(), new Options\CustomFieldsToLinkPost(), new Options\CustomFieldsToLinkTerm())), self::ILJ_OPTION_SECTION_LINKS => array('options' => array(new Options\LinkOutputInternal(), new Options\InternalNofollow(), new Options\LinkOutputCustom(), new Link_Preview_Switch(), new Link_Preview_Template())), self::ILJ_OPTION_SECTION_ACTIONS => array('actions' => array(new Options\CancelAllILJSchedules()), 'options' => array()));
+        $this->sections = array(self::ILJ_OPTION_SECTION_GENERAL => array('options' => array(new Options\KeepSettings(), new Options\HideStatusBar(), new Options\SchedulerBatchSize(), new Options\EditorRole(), new Options\IndexGeneration())), self::ILJ_OPTION_SECTION_CONTENT => array('options' => array(new Options\Whitelist(), new Options\TaxonomyWhitelist(), new Options\Blacklist(), new Options\BlacklistChildPages(), new Options\TermBlacklist(), new Options\KeywordOrder(), new Options\LinksPerPage(), new Options\LinksPerParagraphSwitch(), new Options\LinksPerParagraph(), new Options\LinksPerTarget(), new Options\Limit_Incoming_Links(), new Options\Max_Incoming_Links(), new Options\MultipleKeywords(), new Case_Sensitive_Mode_Switch(), new Options\NoLinkTags(), new Options\RespectExistingLinks(), new Options\LimitTaxonomyList(), new Options\CustomFieldsToLinkPost(), new Options\CustomFieldsToLinkTerm())), self::ILJ_OPTION_SECTION_LINKS => array('options' => array(new Options\LinkOutputInternal(), new Options\InternalNofollow(), new Options\LinkOutputCustom(), new Link_Preview_Switch(), new Link_Preview_Template())), self::ILJ_OPTION_SECTION_ACTIONS => array('actions' => array(new Options\CancelAllILJSchedules(), new Options\Fix_Database_Collation()), 'options' => array(new Options\CacheToggleBtnSwitch())));
         return $this;
     }
     public static function init()
@@ -340,7 +340,6 @@ class Options
                     add_settings_field($action::get_key(), $action::get_title(), function () use ($action) {
                         $action::render_action();
                     }, self::ILJ_OPTION_PREFIX_PAGE . $section, self::ILJ_OPTION_PREFIX_ID . $section);
-                    $action->register(self::ILJ_OPTION_PREFIX_PAGE . $section);
                 }
             }
         }

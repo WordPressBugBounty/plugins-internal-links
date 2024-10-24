@@ -3,6 +3,7 @@
 namespace ILJ\Backend;
 
 use ILJ\Core\Options;
+use ILJ\Core\Options\CacheToggleBtnSwitch;
 use ILJ\Helper\BatchInfo as HelperBatchInfo;
 /**
  * Admin bar
@@ -37,8 +38,11 @@ class AdminBar
                     </div>
                 </a>'));
         $admin_bar->add_node($args);
-        // Disable in version 2.23.5 due to conflicts with other plugins
-        self::add_cache_menu_items($admin_bar);
+        $cache_option = Options::getOption(CacheToggleBtnSwitch::getKey());
+        if ($cache_option) {
+            // Disable in version 2.23.5 due to conflicts with other plugins
+            self::add_cache_menu_items($admin_bar);
+        }
         $args = array('parent' => 'ilj', 'id' => 'ilj-status', 'title' => '<div class="ilj-build-title"><strong>Status:</strong> <span  id="ilj_batch_status">' . HelperBatchInfo::translateBatchStatus($status) . '</span></div>', 'meta' => array('html' => '
 				<hr class="ilj-build-seperate" />
                 <div class="ilj-build-info">

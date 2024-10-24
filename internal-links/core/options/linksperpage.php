@@ -66,7 +66,7 @@ class LinksPerPage extends AbstractOption
         echo esc_attr($key);
         ?>" value="<?php 
         echo esc_attr($value);
-        ?>" <?php 
+        ?>" min=0 <?php 
         disabled($multiple_keywords);
         ?> />
 		<?php 

@@ -3,7 +3,7 @@
         'name' => 'updraftplus/internal-link-juicer',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '0c8141c034b2b9f441e4df7b389c1181d83c4ca4',
+        'reference' => 'e6f4be23576d4d9cf3378b216258551ce5765827',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'freemius/wordpress-sdk' => array(
-            'pretty_version' => '2.7.2',
-            'version' => '2.7.2.0',
-            'reference' => 'eeac5f905746822207729ed0d944c4434ee165ff',
+            'pretty_version' => '2.8.1',
+            'version' => '2.8.1.0',
+            'reference' => 'cc31279d088909135b6b2d8b4f2696312f5731fc',
             'type' => 'library',
             'install_path' => __DIR__ . '/../freemius/wordpress-sdk',
             'aliases' => array(),
@@ -22,7 +22,7 @@
         'updraftplus/internal-link-juicer' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '0c8141c034b2b9f441e4df7b389c1181d83c4ca4',
+            'reference' => 'e6f4be23576d4d9cf3378b216258551ce5765827',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

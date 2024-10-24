@@ -11,6 +11,7 @@ use ILJ\Cache\Transient_Cache;
 use ILJ\Core\IndexBuilder;
 use ILJ\Core\Options as CoreOptions;
 use ILJ\Data\Content;
+use ILJ\Database\DatabaseCollation;
 use ILJ\Database\Postmeta;
 use ILJ\Enumeration\Content_Type;
 use ILJ\Helper\IndexAsset;
@@ -139,23 +140,18 @@ class Ajax
      *
      * @since 1.2.5
      *
-     * @param int $start_count Determine what index to start counting
-     * @param int $chunk_size  The size of the batch to loop into
-     * @return String
+     * @param  array $request Data of the datatable form send to server for populating datagrid
+     * @return array
      */
-    public static function render_anchors_statistic($start_count, $chunk_size)
+    public static function render_anchors_statistic($request)
     {
-        $statistics = Statistic::getAnchorStatistics();
-        for ($i = $start_count; $i < min($start_count + $chunk_size, count($statistics)); $i++) {
-            $statistic = $statistics[$i];
-            self::$cached_html .= '<tr>';
-            self::$cached_html .= '<td>' . $statistic->anchor . '</td>';
-            self::$cached_html .= '<td>' . strlen($statistic->anchor) . '</td>';
-            self::$cached_html .= '<td>' . count(explode(' ', $statistic->anchor)) . '</td>';
-            self::$cached_html .= '<td><a title="' . __('Show usage', 'internal-links') . '" class="tip ilj-statistic-detail" data-anchor="' . $statistic->anchor . '">' . $statistic->frequency . '</a></td>';
-            self::$cached_html .= '</tr>';
+        $record_data = array();
+        $statistics = Statistic::get_anchor_statistics($request);
+        foreach ($statistics['data'] as $statistic) {
+            $record_data[] = array(esc_html($statistic->anchor), intval(strlen($statistic->anchor)), intval(count(explode(' ', $statistic->anchor))), '<a title="' . __('Show usage', 'internal-links') . '" class="tip ilj-statistic-detail" data-anchor="' . esc_attr($statistic->anchor) . '">' . esc_html($statistic->frequency) . '</a>');
         }
-        echo self::$cached_html;
+        $statistics['data'] = $record_data;
+        return $statistics;
     }
     /**
      * Retrieves link data for a specific asset by a given direction (in- or outgoing)
@@ -486,9 +482,8 @@ class Ajax
         if (!current_user_can('manage_options')) {
             return;
         }
-        $start_count = intval($_POST['start_count']);
-        $chunk_size = intval($_POST['chunk_size']);
-        $html_chunk = Ajax::render_anchors_statistic($start_count, $chunk_size);
+        $request = $_POST;
+        $html_chunk = Ajax::render_anchors_statistic($request);
         echo json_encode($html_chunk);
         die;
     }
@@ -509,6 +504,25 @@ class Ajax
         }
         Cleanup::clean_scheduled_actions();
         HelperBatchInfo::reset_batch_info();
+        wp_send_json_success(null, 200);
+        wp_die();
+    }
+    /**
+     * Fix database collation issues
+     *
+     * @since 2.24.4
+     *
+     * @return void
+     */
+    public static function fix_database_collation()
+    {
+        if (!isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'ilj-fix-database-collation-action')) {
+            die;
+        }
+        if (!current_user_can('manage_options')) {
+            return;
+        }
+        DatabaseCollation::modify_collation();
         wp_send_json_success(null, 200);
         wp_die();
     }

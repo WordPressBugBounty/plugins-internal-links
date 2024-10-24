@@ -26,10 +26,24 @@ final class Content
      * @var string $type
      */
     private $type;
-    private function __construct($id, $type)
+    /**
+     * The type of post or term, which can be page, product, download or category, tag, product_cat
+     *
+     * @var string $sub_type
+     */
+    private $sub_type;
+    /**
+     * Class constructor.
+     *
+     * @param int    $id       Id of the content.
+     * @param string $type     Type of the content. It can be either a post or a term.
+     * @param string $sub_type Sub type of the content.
+     */
+    private function __construct($id, $type, $sub_type = '')
     {
         $this->id = $id;
         $this->type = $type;
+        $this->sub_type = $sub_type;
     }
     /**
      * Get the numerical identifier of the object.
@@ -96,38 +110,41 @@ final class Content
     /**
      * Creates instance of content from post id.
      *
-     * @param int $post_id The post id.
+     * @param int    $post_id          The post id.
+     * @param string $content_sub_type The type of post, which can be page, product, download.
      * @return Content
      */
-    public static function from_post_id($post_id)
+    public static function from_post_id($post_id, $content_sub_type = '')
     {
-        return new self($post_id, Content_Type::POST);
+        return new self($post_id, Content_Type::POST, $content_sub_type);
     }
     /**
      * Construct a content instance from content type and id.
      *
-     * @param string $content_type The type of content, which can be  {@link Content_Type::POST} or {@link Content_Type::TERM}
-     * @param int    $id           The numerical identifier.
+     * @param string $content_type     The type of content, which can be  {@link Content_Type::POST} or {@link Content_Type::TERM}
+     * @param string $content_sub_type The type of post or term, which can be category, tag, product_cat
+     * @param int    $id               The numerical identifier.
      *
      * @return Content|null
      */
-    public static function from_content_type_and_id($content_type, $id)
+    public static function from_content_type_and_id($content_type, $content_sub_type, $id)
     {
-        if (Content_Type::POST === $content_type) {
-            return self::from_post_id($id);
-        } elseif (Content_Type::TERM === $content_type) {
-            return self::from_term_id($id);
+        if (Content_Type::POST == $content_type) {
+            return self::from_post_id($id, $content_sub_type);
+        } elseif (Content_Type::TERM == $content_type) {
+            return self::from_term_id($id, $content_sub_type);
         }
     }
     /**
      * Creates instance of content from term id.
      *
-     * @param int $term_id The post id.
+     * @param int    $term_id          The post id.
+     * @param string $content_sub_type The type of post or term, which can be category, tag, product_cat.
      * @return Content
      */
-    public static function from_term_id($term_id)
+    public static function from_term_id($term_id, $content_sub_type = '')
     {
-        return new self($term_id, Content_Type::TERM);
+        return new self($term_id, Content_Type::TERM, $content_sub_type);
     }
     /**
      * Creates instance of content from {@link \WP_Post}
@@ -188,6 +205,47 @@ final class Content
         return '';
     }
     /**
+     * Return the edit title
+     *
+     * @return string edit title
+     */
+    public function get_edit_title()
+    {
+        if ('post' === $this->get_type()) {
+            return sprintf(__('Edit %s', 'internal-links'), $this->get_cpt_singular_name());
+        } elseif ('term' === $this->get_type()) {
+            return sprintf(__('Edit %s', 'internal-links'), $this->get_taxonomy_singular_name());
+        }
+        return '';
+    }
+    /**
+     * Get custom post type singular name.
+     *
+     * @return string custom post type singular name.
+     */
+    private function get_cpt_singular_name()
+    {
+        return get_post_type_object($this->sub_type)->labels->singular_name;
+    }
+    /**
+     * Get taxonomy singular name.
+     *
+     * @return string taxonomy singular name.
+     */
+    private function get_taxonomy_singular_name()
+    {
+        return get_taxonomy($this->get_sub_type())->labels->singular_name;
+    }
+    /**
+     * Get sub type of content.
+     *
+     * @return string Sub type of content.
+     */
+    private function get_sub_type()
+    {
+        return $this->sub_type;
+    }
+    /**
      * Return the permalink
      *
      * @return string
@@ -195,9 +253,23 @@ final class Content
     public function get_permalink()
     {
         if ('post' === $this->get_type()) {
-            return get_permalink($this->get_id());
+            return get_permalink(absint($this->get_id()));
         } elseif ('term' === $this->get_type()) {
-            return get_term_link($this->get_id());
+            return get_term_link(absint($this->get_id()));
+        }
+        return '';
+    }
+    /**
+     * Get view title.
+     *
+     * @return string view title.
+     */
+    public function get_permalink_title()
+    {
+        if ('post' === $this->get_type()) {
+            return sprintf(__('View %s', 'internal-links'), $this->get_cpt_singular_name());
+        } elseif ('term' === $this->get_type()) {
+            return sprintf(__('View %s', 'internal-links'), $this->get_taxonomy_singular_name());
         }
         return '';
     }

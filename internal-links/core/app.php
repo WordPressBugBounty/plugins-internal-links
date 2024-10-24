@@ -223,6 +223,7 @@ class App
         add_action('wp_ajax_ilj_rebuild_index', array('\ILJ\Helper\Ajax', 'indexRebuildAction'));
         add_action('wp_ajax_load_link_statistics', array('\ILJ\Helper\Ajax', 'load_link_statistics'));
         add_action('wp_ajax_ilj_cancel_schedules', array('\ILJ\Helper\Ajax', 'cancel_all_schedules'));
+        add_action('wp_ajax_ilj_fix_database_collation', array('\ILJ\Helper\Ajax', 'fix_database_collation'));
         add_action('wp_ajax_ilj_clear_all_transient', array('\ILJ\Helper\Ajax', 'clear_all_transient'));
         add_action('wp_ajax_ilj_clear_single_transient', array('\ILJ\Helper\Ajax', 'clear_single_transient'));
         add_action('wp_ajax_load_anchor_statistics_chunk', array('\ILJ\Helper\Ajax', 'load_anchor_statistics_chunk_callback'));
@@ -231,8 +232,8 @@ class App
         $hide_status_bar = Options::getOption(\ILJ\Core\Options\HideStatusBar::getKey());
         if (!$hide_status_bar) {
             add_action('admin_bar_menu', array('\ILJ\Backend\AdminBar', 'addLink'), 999);
-            add_action('wp_ajax_ilj_render_batch_info', array('\ILJ\Helper\Ajax', 'renderBatchInfo'));
         }
+        add_action('wp_ajax_ilj_render_batch_info', array('\ILJ\Helper\Ajax', 'renderBatchInfo'));
         $this->addPostIndexTrigger();
         add_action(CustomFieldsToLinkPost::ILJ_ACTION_ADD_PRO_FEATURES, function () {
             ?>
@@ -257,12 +258,14 @@ class App
      */
     public function enqueueAdminBarScripts()
     {
+        \ILJ\Helper\Loader::register_script('ilj-link-index-status-func-script', ILJ_URL . 'admin/js/ilj-link-index-status-func.js', array('jquery'), ILJ_VERSION);
+        $this->localize_ilj_ajax_object('ilj-link-index-status-func-script');
         $hide_status_bar = Options::getOption(\ILJ\Core\Options\HideStatusBar::getKey());
         if (!$hide_status_bar) {
             \ILJ\Helper\Loader::enqueue_style('ilj_admin_menu_bar_style', ILJ_URL . 'admin/css/ilj_admin_menu_bar.css', array(), ILJ_VERSION);
-            \ILJ\Helper\Loader::register_script('ilj_admin_menu_bar_script', ILJ_URL . 'admin/js/ilj_admin_menu_bar.js', array('jquery'), ILJ_VERSION);
+            \ILJ\Helper\Loader::register_script('ilj_admin_menu_bar_script', ILJ_URL . 'admin/js/ilj_admin_menu_bar.js', array('ilj-link-index-status-func-script'), ILJ_VERSION);
             \ILJ\Helper\Loader::enqueue_script('ilj_admin_menu_bar_script');
-            wp_localize_script('ilj_admin_menu_bar_script', 'ilj_ajax_object', array('ajaxurl' => admin_url('admin-ajax.php'), 'nonce' => wp_create_nonce('ilj-general-nonce')));
+            wp_localize_script('ilj_admin_menu_bar_script', 'ilj_ajax_menu_bar_script', array('ajaxurl' => admin_url('admin-ajax.php'), 'nonce' => wp_create_nonce('ilj-general-nonce')));
         }
     }
     /**
@@ -277,7 +280,7 @@ class App
         if ('toplevel_page_internal_link_juicer' != $current_screen->base) {
             return;
         }
-        \ILJ\Helper\Loader::register_script('ilj_index_rebuild_button', ILJ_URL . 'admin/js/ilj_ajax_index_rebuild.js', array(), ILJ_VERSION);
+        \ILJ\Helper\Loader::register_script('ilj_index_rebuild_button', ILJ_URL . 'admin/js/ilj_ajax_index_rebuild.js', array('ilj-link-index-status-func-script'), ILJ_VERSION);
         \ILJ\Helper\Loader::enqueue_script('ilj_index_rebuild_button');
     }
     /**
@@ -289,6 +292,17 @@ class App
     {
         \ILJ\Helper\Loader::register_script('ilj_admin_script', ILJ_URL . 'admin/js/ilj_admin_script.js', array('jquery'), ILJ_VERSION);
         \ILJ\Helper\Loader::enqueue_script('ilj_admin_script');
+        $this->localize_ilj_ajax_object('ilj_admin_script');
+    }
+    /**
+     * Localize ilj_ajax_object to $handle enqueue script.
+     *
+     * @param String $handle enqueue script handle.
+     * @return void
+     */
+    private function localize_ilj_ajax_object($handle)
+    {
+        wp_localize_script($handle, 'ilj_ajax_object', array('ajaxurl' => admin_url('admin-ajax.php'), 'nonce' => wp_create_nonce('ilj-general-nonce')));
     }
     /**
      * Delete incoming and outgoing link index by ID

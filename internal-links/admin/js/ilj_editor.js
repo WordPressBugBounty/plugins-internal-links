@@ -1,4 +1,3 @@
-var __webpack_exports__ = {};
 /*!************************************!*\
   !*** ./src/admin/js/ilj_editor.js ***!
   \************************************/
@@ -232,13 +231,13 @@ var __webpack_exports__ = {};
          */
         this.inputGui.on('keypress', 'input[name="count"]', function (e) {
           if (e.keyCode === 13) {
-            that.inputGui.find('a.add-gap').click();
+            that.inputGui.find('a.add-gap').trigger('click');
           }
           return e.keyCode != 13;
         });
         this.inputGui.on('keypress', 'input[name="gap"]', function (e) {
           if (e.keyCode === 13) {
-            that.inputGui.find('input[name="count"]').focus();
+            that.inputGui.find('input[name="count"]').trigger('focus');
           }
           return e.keyCode != 13;
         });
@@ -269,7 +268,7 @@ var __webpack_exports__ = {};
           }
           $count_field.val('');
           that.inputGui.find('input[name="keyword"]').val(old_value + gap_placeholder);
-          that.inputGui.find('input[name="keyword"]').focus();
+          that.inputGui.find('input[name="keyword"]').trigger('focus');
         });
 
         /**
@@ -369,11 +368,11 @@ var __webpack_exports__ = {};
     //Initializing the ILJ box object
     Box.init();
   };
-})(jQuery);
-jQuery(document).ready(function () {
-  jQuery('#ilj_linkdefinition').ilj_editor();
-  jQuery('.pro-setting').attr('title', ilj_editor_translation.pro_feature_title);
-  jQuery('.pro-setting').on('click', function () {
-    window.open(ilj_editor_translation.upgrade_to_pro_link, '_blank');
+  $(function () {
+    jQuery('#ilj_linkdefinition').ilj_editor();
+    jQuery('.pro-setting').attr('title', ilj_editor_translation.pro_feature_title);
+    jQuery('.pro-setting').on('click', function () {
+      window.open(ilj_editor_translation.upgrade_to_pro_link, '_blank');
+    });
   });
-});
+})(jQuery);

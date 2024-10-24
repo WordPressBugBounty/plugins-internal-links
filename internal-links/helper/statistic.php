@@ -94,14 +94,12 @@ class Statistic
      * Returns the statistics for anchor texts
      *
      * @since  1.1.0
-     * @param  int $results
-     * @param  int $page
+     * @param  array $request Data of datatable form to send to server for populating data
      * @return array
      */
-    public static function getAnchorStatistics($results = -1, $page = 0)
+    public static function get_anchor_statistics($request)
     {
-        $page = (0 < $page) ? $page : 1;
-        $anchors = Linkindex::getAnchorCountFull();
+        $anchors = Linkindex::get_anchor_count_full($request);
         return $anchors;
     }
     /**

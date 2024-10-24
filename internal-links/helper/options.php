@@ -3,8 +3,10 @@
 namespace ILJ\Helper;
 
 use ILJ\Backend\User;
+use ILJ\Cache\Transient_Cache;
 use ILJ\Core\IndexBuilder;
 use ILJ\Core\Options as CoreOptions;
+use ILJ\Core\Options\CacheToggleBtnSwitch;
 use ILJ\Core\Options\OptionInterface;
 use ILJ\Core\ThemeCompat;
 use ILJ\Database\Linkindex;
@@ -204,8 +206,13 @@ class Options
     {
         $partial_rebuild = array('ilj_settings_field_blacklist', 'ilj_settings_field_term_blacklist');
         $full_rebuild = array('ilj_settings_field_whitelist', 'ilj_settings_field_taxonomy_whitelist', 'ilj_settings_field_blacklist_child_pages', 'ilj_settings_field_keyword_order', 'ilj_settings_field_links_per_page', 'ilj_settings_field_links_per_paragraph_switch', 'ilj_settings_field_links_per_paragraph', 'ilj_settings_field_links_per_target', 'ilj_settings_field_multiple_keywords', 'ilj_settings_field_no_link_tags', 'ilj_settings_field_link_output_respect_existing_links', 'ilj_settings_field_limit_taxonomy_list', 'ilj_settings_field_custom_fields_to_link_post', 'ilj_settings_field_custom_fields_to_link_term', 'ilj_settings_field_case_sensitive_mode_switch', 'ilj_settings_field_limit_incoming_links', 'ilj_settings_field_max_incoming_links');
-        $no_rebuild = array('ilj_settings_field_keep_settings', 'ilj_settings_field_editor_role', 'ilj_settings_field_index_generation', 'ilj_settings_field_link_output_internal', 'ilj_settings_field_internal_nofollow', 'ilj_settings_field_link_output_custom');
+        $no_rebuild = array('ilj_settings_field_keep_settings', 'ilj_settings_field_editor_role', 'ilj_settings_field_index_generation', 'ilj_settings_field_link_output_internal', 'ilj_settings_field_internal_nofollow', 'ilj_settings_field_link_output_custom', 'ilj_settings_field_cache_toggle_btn_switch');
         if (in_array($option_name, $no_rebuild)) {
+            if (CacheToggleBtnSwitch::getKey() == $option_name) {
+                if ($old_value != $value) {
+                    Transient_Cache::delete_all();
+                }
+            }
             return;
         } elseif (in_array($option_name, $partial_rebuild)) {
             if (!is_array($old_value)) {

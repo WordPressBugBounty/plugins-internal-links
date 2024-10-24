@@ -201,14 +201,14 @@
     margin-left: auto;
 }
 
-#ilj-cancel-schedule-feedback {
+#ilj-cancel-schedule-feedback, #ilj-fix-database-collation-feedback {
     display: inline-block;
     margin: 0px;
     padding: 0px 30px;
     color: green;
 }
 
-#ilj-cancel-schedule-feedback p {
+#ilj-cancel-schedule-feedback p, #ilj-fix-database-collation-feedback p {
     margin: 0.3em 0;
     padding: 0px;
 }

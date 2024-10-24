@@ -172,7 +172,7 @@ __webpack_require__.r(__webpack_exports__);
   /**
    * Initialize the warning tip if possible
    */
-  $(document).ready(function () {
+  $(function () {
     var $warningTip = $('.warning-tip');
     if (!$warningTip.length) {
       return;
@@ -192,7 +192,7 @@ __webpack_require__.r(__webpack_exports__);
   /**
    * Initializing the statistics
    */
-  $(document).ready(function () {
+  $(function () {
     var selected_types = ilj_link_statistic_filter_types.reduce(function (acc, e) {
       if (undefined === acc[e.main_type]) {
         acc[e.main_type] = new Set();
@@ -424,7 +424,7 @@ __webpack_require__.r(__webpack_exports__);
           targets: 5,
           orderable: false,
           render: function (data, type, row) {
-            return `<a href="${row.edit_link}" class="tip"><span class="dashicons dashicons-edit"></span></a> <a class="tip"  target="_blank" rel="noopener" href="${row.permalink}"><span class="dashicons dashicons-external"></span></a>`;
+            return `<a href="${row.edit_link}" title="${row.edit_title}" class="tip"><span class="dashicons dashicons-edit"></span></a> <a class="tip"  target="_blank" rel="noopener" href="${row.permalink}" title="${row.permalink_title}"><span class="dashicons dashicons-external"></span></a>`;
           }
         }],
         language: dataTables_language,
@@ -522,48 +522,27 @@ __webpack_require__.r(__webpack_exports__);
         targetElement.appendChild(table);
       }
     }
-    function load_anchor_statistics_chunk(start_count) {
-      jQuery.ajax({
-        type: 'POST',
-        url: ajaxurl,
-        // WordPress AJAX URL
-        data: {
-          action: 'load_anchor_statistics_chunk',
-          nonce: ilj_dashboard.nonce,
-          start_count: start_count,
-          chunk_size: chunk_size
-        },
-        success: function (response) {
-          // Append the HTML chunk to your table
-          if ('null' != response) {
-            anchor_statistics_table_data += response;
-          }
-
-          // Update the start_count for the next chunk
-          start_count += chunk_size;
-          // If there's more data, load the next chunk
-          if ('null' != response) {
-            load_anchor_statistics_chunk(start_count);
-          } else {
-            render_link_anchor_statistics_table();
-          }
-        },
-        error: function (error) {
-          console.log('Error loading statistics: ', error);
-        }
-      });
-    }
     function render_link_anchor_statistics_table() {
       create_link_anchor_statistics_table();
+      var spinnerUrl = ajaxurl.replace('admin-ajax.php', 'images/spinner.gif');
+      $('body').append('<div style="position: fixed;top: 50%;left: 50%;transform: translate(-50%, -50%);display:none" id="loading-icon"><img src="' + spinnerUrl + '" alt="' + ilj_dashboard.loadingText + '"></div>');
+      var $loadingIcon = $('#loading-icon');
       var $table = jQuery('.ilj-statistic-table-anchors');
-      jQuery('.ilj-statistic-table-anchors tbody').append(anchor_statistics_table_data);
       $('#statistic-anchors').html($table);
 
       /**
        * Render the anchor statistics table
        */
-      $table.DataTable({
-        stateSave: false,
+      var dataTable = $table.DataTable({
+        ajax: {
+          url: ajaxurl,
+          type: 'POST',
+          data: function (d) {
+            d.action = 'load_anchor_statistics_chunk', d.nonce = ilj_dashboard.nonce;
+          }
+        },
+        processing: false,
+        serverSide: true,
         language: dataTables_language,
         stateLoaded: function (settings, data) {
           $table.find('.tip').iljtipso(tipsoConfig);
@@ -573,16 +552,31 @@ __webpack_require__.r(__webpack_exports__);
           targets: 0
         }, {
           responsivePriority: 2,
+          searchable: false,
           targets: 3
         }, {
           responsivePriority: 3,
+          searchable: false,
+          orderable: false,
           targets: 2
         }, {
           responsivePriority: 4,
+          searchable: false,
+          orderable: false,
           targets: 1
         }],
-        responsive: true
+        responsive: true,
+        searchDelay: 1000
+      }).on('processing.dt', function (e, settings, processing) {
+        $loadingIcon.toggle(processing);
       });
+      $('#statistic-anchors input').off('keypress').on('keypress', function (e) {
+        if (e.which == 13) {
+          // Enter key
+          dataTable.search(this.value).draw();
+        }
+      });
+
       /**
        * Open detailed statistics
        */
@@ -606,8 +600,8 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
 
-    // Initial call to load the first chunk of data for anchor statistics table
-    load_anchor_statistics_chunk(0);
+    //generate the anchor statistics table and render it.
+    render_link_anchor_statistics_table();
   });
 
   /**

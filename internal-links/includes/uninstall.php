@@ -33,6 +33,17 @@ function ilj_uninstall_db()
     global $wpdb;
     $query_linkindex = 'DROP TABLE IF EXISTS ' . $wpdb->prefix . Linkindex::ILJ_DATABASE_TABLE_LINKINDEX . ';';
     $wpdb->query($query_linkindex);
+    $fs_accounts = get_option('fs_accounts', array());
+    unset($fs_accounts['id_slug_type_path_map'][ILJ_FREEMIUS_PLUGIN_ID]);
+    unset($fs_accounts['plugin_data']['internal-links']);
+    unset($fs_accounts['file_slug_map']['internal-links/wp-internal-linkjuicer.php']);
+    unset($fs_accounts['file_slug_map']['internal-links-premium/wp-internal-linkjuicer.php']);
+    unset($fs_accounts['plugins']['[internal-links']);
+    unset($fs_accounts['sites']['internal-links']);
+    unset($fs_accounts['plans']['internal-links']);
+    unset($fs_accounts['user_id_license_ids_map'][ILJ_FREEMIUS_PLUGIN_ID]);
+    unset($fs_accounts['all_licenses'][ILJ_FREEMIUS_PLUGIN_ID]);
+    update_option('fs_accounts', $fs_accounts);
 }
 /**
  * This function performs tasks such as deleting database tables,

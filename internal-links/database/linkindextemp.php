@@ -16,7 +16,7 @@ class LinkindexTemp
     public static function install_temp_db()
     {
         global $wpdb;
-        $charset_collate = $wpdb->get_charset_collate();
+        $charset_collate = DatabaseCollation::get_collation(true);
         $query_linkindex = 'CREATE TABLE ' . $wpdb->prefix . self::ILJ_DATABASE_TABLE_LINKINDEX_TEMP . ' (
 			`id` BIGINT(20) NOT NULL AUTO_INCREMENT,
 			`link_from` BIGINT(20) NULL,
@@ -28,7 +28,7 @@ class LinkindexTemp
 			INDEX `link_from` (`link_from` ASC),
 			INDEX `type_from` (`type_from` ASC),
 			INDEX `type_to` (`type_to` ASC),
-			INDEX `link_to` (`link_to` ASC))' . $charset_collate . ';';
+			INDEX `link_to` (`link_to` ASC)) ' . $charset_collate . ';';
         include_once ABSPATH . 'wp-admin/includes/upgrade.php';
         dbDelta($query_linkindex);
     }

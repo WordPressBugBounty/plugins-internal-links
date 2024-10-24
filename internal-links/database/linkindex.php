@@ -232,13 +232,148 @@ class Linkindex
      * Returns all anchor texts with their frequency
      *
      * @since  1.1.0
+     * @param  array $request Data of the requested form contains limit, orders, filters indices
      * @return array
      */
-    public static function getAnchorCountFull()
+    public static function get_anchor_count_full($request)
     {
         global $wpdb;
-        $query = 'SELECT *, count(anchor) as frequency FROM  ' . $wpdb->prefix . self::ILJ_DATABASE_TABLE_LINKINDEX . '  GROUP BY anchor ORDER BY frequency DESC';
-        return $wpdb->get_results($query);
+        $table = $wpdb->prefix . self::ILJ_DATABASE_TABLE_LINKINDEX;
+        $bindings = array();
+        $columns = array(array('db' => 'anchor', 'dt' => 0), array('db' => 'frequency', 'dt' => 3));
+        $limit = self::ilj_grid_limit($request);
+        $order = self::ilj_grid_order($request, $columns);
+        $where = self::ilj_grid_filter($request, $columns, $bindings);
+        $where = ('' != $where) ? " WHERE {$where} " : $where;
+        $sql = "SELECT *, count(anchor) as frequency FROM `{$table}` {$where} GROUP BY anchor  {$order} {$limit}";
+        $prepared_query = empty($bindings) ? $sql : $wpdb->prepare($sql, $bindings);
+        $data = $wpdb->get_results($prepared_query);
+        $sql1 = "SELECT COUNT(`id`) FROM `{$table}` {$where} GROUP BY anchor ";
+        $prepared_query1 = empty($bindings) ? $sql1 : $wpdb->prepare($sql1, $bindings);
+        $res_filter_length = $wpdb->get_results($prepared_query1);
+        $records_filtered = count($res_filter_length);
+        $res_total_length = $wpdb->get_results("SELECT COUNT(`id`) FROM `{$table}` GROUP BY anchor");
+        $records_total = count($res_total_length);
+        return array("draw" => isset($request['draw']) ? intval($request['draw']) : 0, "recordsTotal" => intval($records_total), "recordsFiltered" => intval($records_filtered), "data" => $data);
+    }
+    /**
+     * Paging
+     *
+     * Construct the LIMIT clause for server-side processing SQL query
+     *
+     * @param array $request Data sent to server by DataTables
+     * @return string SQL limit clause
+     */
+    public static function ilj_grid_limit($request)
+    {
+        $limit = '';
+        if (isset($request['start']) && -1 != $request['length']) {
+            $limit = "LIMIT " . intval($request['start']) . ", " . intval($request['length']);
+        }
+        return $limit;
+    }
+    /**
+     * Ordering
+     *
+     * Construct the ORDER BY clause for server-side processing SQL query
+     *
+     * @param array $request Data sent to server by DataTables
+     * @param array $columns Column information array
+     * @return string SQL order by clause
+     */
+    private static function ilj_grid_order($request, $columns)
+    {
+        $order = '';
+        if (isset($request['order']) && count($request['order'])) {
+            $order_by = array();
+            $dt_columns = self::ilj_grid_pluck($columns, 'dt');
+            for ($i = 0, $ien = count($request['order']); $i < $ien; $i++) {
+                $column_idx = intval($request['order'][$i]['column']);
+                $request_column = $request['columns'][$column_idx];
+                if ('true' == $request_column['orderable']) {
+                    $column = $columns[array_search($request_column['data'], $dt_columns)];
+                    $dir = ('asc' == $request['order'][$i]['dir']) ? 'ASC' : 'DESC';
+                    $order_by[] = '`' . $column['db'] . '` ' . $dir;
+                }
+            }
+            $order = 'ORDER BY ' . implode(', ', $order_by);
+        }
+        return $order;
+    }
+    /**
+     * Searching / Filtering
+     *
+     * Construct the WHERE clause for server-side processing SQL query.
+     *
+     * @param array $request  Data sent to server by DataTables
+     * @param array $columns  Column information array
+     * @param array $bindings Array of values for PDO bindings, used to prevent SQL injection
+     * @return string SQL where clause
+     */
+    public static function ilj_grid_filter($request, $columns, &$bindings)
+    {
+        $global_search = array();
+        $column_search = array();
+        $dt_columns = self::ilj_grid_pluck($columns, 'dt');
+        if (isset($request['search']) && '' != $request['search']['value']) {
+            $str = $request['search']['value'];
+            for ($i = 0, $ien = count($request['columns']); $i < $ien; $i++) {
+                $request_column = $request['columns'][$i];
+                $column_idx = array_search($request_column['data'], $dt_columns);
+                $column = $columns[$column_idx];
+                if ('true' == $request_column['searchable']) {
+                    $binding = self::ilj_grid_bind($bindings, '%' . $str . '%', '%s');
+                    $global_search[] = "`" . $column['db'] . "` LIKE " . $binding;
+                }
+            }
+        }
+        // Individual column filtering
+        for ($i = 0, $ien = count($request['columns']); $i < $ien; $i++) {
+            $request_column = $request['columns'][$i];
+            $column_idx = array_search($request_column['data'], $dt_columns);
+            $column = $columns[$column_idx];
+            $str = $request_column['search']['value'];
+            if ('true' == $request_column['searchable'] && '' != $str) {
+                $binding = self::ilj_grid_bind($bindings, '%' . $str . '%', '%s');
+                $column_search[] = "`" . $column['db'] . "` LIKE " . $binding;
+            }
+        }
+        // Combine the filters into a single string
+        $where = '';
+        if (count($global_search)) {
+            $where = '(' . implode(' OR ', $global_search) . ')';
+        }
+        if (count($column_search)) {
+            $where = ('' == $where) ? implode(' AND ', $column_search) : ($where . ' AND ' . implode(' AND ', $column_search));
+        }
+        return $where;
+    }
+    /**
+     * Return a string from an array or a string
+     *
+     * @param  array  $a    Array to get the value from
+     * @param string $prop Property name to return
+     * @return array Array of property values
+     */
+    private static function ilj_grid_pluck($a, $prop)
+    {
+        $out = array();
+        for ($i = 0, $len = count($a); $i < $len; $i++) {
+            $out[] = $a[$i][$prop];
+        }
+        return $out;
+    }
+    /**
+     * Create a PDO binding key which can be used for escaping variables safely when executing a query
+     *
+     * @param  array  $a   value of bindings
+     * @param  string $val Value to bind
+     * @return string Bound key to be used in the SQL where this parameter would be used
+     */
+    private static function ilj_grid_bind(&$a, $val)
+    {
+        $a[] = $val;
+        return '%s';
     }
     /**
      * Count inbound/outbound entries for a given index type

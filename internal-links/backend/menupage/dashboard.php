@@ -55,7 +55,7 @@ class Dashboard extends AbstractMenuPage
                 wp_enqueue_script(self::ILJ_STATISTIC_HANDLE);
                 wp_localize_script(self::ILJ_STATISTIC_HANDLE, 'headerLabels', array(__('Anchor text', 'internal-links'), __('Character count', 'internal-links'), __('Word count', 'internal-links'), __('Frequency', 'internal-links')));
                 wp_localize_script(self::ILJ_STATISTIC_HANDLE, 'header_titles', array(__('Title', 'internal-links'), __('Configured keywords', 'internal-links'), __('Type', 'internal-links'), __('Incoming links', 'internal-links'), __('Outgoing links', 'internal-links'), __('Action', 'internal-links')));
-                wp_localize_script(self::ILJ_STATISTIC_HANDLE, 'ilj_dashboard', array('nonce' => wp_create_nonce('ilj-dashboard')));
+                wp_localize_script(self::ILJ_STATISTIC_HANDLE, 'ilj_dashboard', array('nonce' => wp_create_nonce('ilj-dashboard'), 'loadingText' => __('Loading...', 'internal-links')));
             }
         });
     }

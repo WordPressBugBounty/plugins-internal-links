@@ -3,6 +3,7 @@
 namespace ILJ\Backend;
 
 use ILJ\Core\Options;
+use ILJ\Core\Options\CacheToggleBtnSwitch;
 use ILJ\Data\Content;
 use ILJ\Helper\Help;
 use ILJ\Type\KeywordList;
@@ -148,18 +149,21 @@ class Editor
             return;
         }
         $link = admin_url(sprintf('admin-ajax.php?action=%s&_wpnonce=%s&ilj_transient_id=%d&ilj_transient_type=%s&ilj_skip_notice=true', 'ilj_clear_single_transient', wp_create_nonce('ilj_clear_single_transient'), $content->get_id(), $content->get_type()));
-        ?>
+        $cache_option = Options::getOption(CacheToggleBtnSwitch::getKey());
+        if ($cache_option) {
+            ?>
 		<div class="ilj-delete-cache-container">
 			<button class="ilj-button-danger button" id="ilj-delete-cache" type="button" data-ilj-delete-cache-url="<?php 
-        echo esc_attr($link);
-        ?>">
+            echo esc_attr($link);
+            ?>">
 				<?php 
-        esc_html_e('Delete Cache', 'internal-links');
-        ?>
+            esc_html_e('Delete Cache', 'internal-links');
+            ?>
 			</button>
 			<span class="spinner is-active ilj-spinner ilj-hidden"></span>
 		</div>
 		<?php 
+        }
     }
     /**
      * Responsible for saving keyword meta values and

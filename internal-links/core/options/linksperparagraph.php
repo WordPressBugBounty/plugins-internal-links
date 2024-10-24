@@ -76,7 +76,6 @@ class LinksPerParagraph extends AbstractOption
      */
     public function renderField($value)
     {
-        $multiple_keywords = Options::getOption(MultipleKeywords::getKey());
         $key = self::getKey();
         ?>
 		<input type="number"
@@ -90,9 +89,6 @@ class LinksPerParagraph extends AbstractOption
 			value="<?php 
         echo esc_attr($value);
         ?>"
-			<?php 
-        disabled($multiple_keywords);
-        ?>
 			<?php 
         OptionsHelper::render_disabler($this);
         ?>

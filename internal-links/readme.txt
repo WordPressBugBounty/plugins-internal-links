@@ -5,9 +5,9 @@ License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl.html
 Tags: seo, internal links, automatic linking, linkbuilding, onpage, auto linker, ux, link, links
 Requires at least: 5.9.0
-Tested up to: 6.6
+Tested up to: 6.7
 Requires PHP: 7.1.0
-Stable tag: 2.24.4
+Stable tag: 2.24.5
 
 Improve your SEO and your user experience through internal linkbuilding. Automated links between your posts based on a smart keyword configuration.
 
@@ -128,6 +128,26 @@ The Pro version also provides a direct import of __post (and term) titles__ or, 
 7. Import and Export Section - Here you can easily import and export plugin settings or your configured keywords.
 
 == Changelog ==
+
+= 2.24.5 - 23/Oct/2024 =
+
+* COMPATIBILITY: Replace deprecated jQuery 3 code with new code.
+* COMPATIBILITY: Update Freemius SDK to version 2.8.1.
+* COMPATIBILITY: Updated jQuery initialization to use the shorthand `$(function() { ... });` instead of the deprecated `jQuery(document).ready(function() { ... });`.
+* FEATURE: Added option to enable and disable content caching for Internal link juicer.
+* FEATURE: Implement pagination for link statistics.
+* FIX: Fixed an issue when rating notification can't be hidden when "Hide the linkindex indicator from WordPress admin bar" is turned on.
+* FIX: Fixed issue where the function required a string type argument. The fix now allows mixed data types to be passed to link_content to accommodate different types of content.
+* FIX: Implement database collation fix tool, to fix mixed collation.
+* FIX: Prevent negative numbers from being set as values in Internal link juicer setting options.
+* FIX: Prevent removing of line breaks when limit links per paragraph option is turned on.
+* FIX: View category or term link was broken in Internal Links > Dashboard > Statistics > Link statistics.
+* FIX: Resolve timeout issue with `the_content` hook when handling large content.
+* FIX: Resolved an error with the edit screen on Oxygen Builder for missing ilj_ajax_object.
+* FIX: The rebuild index button was not working when the hide the linkindex indicator from WordPress admin bar was enabled.
+* FIX: The upgrade page was not working in a specific situation.
+* FIX: Prevented PHP notices related to improper use of the wpdb::prepare() function by ensuring placeholders are used correctly in SQL queries.
+* PERFORMANCE: Modify the anchor text statistics pagination behaviour to decrease load time. Now it works with search input after pressing enter.
 
 = 2.24.4 - 10/July/2024 =
 
@@ -253,5 +273,5 @@ Release Date: December 2nd, 2022
 For the complete changelog, please refer to [https://www.internallinkjuicer.com/changelog/](https://www.internallinkjuicer.com/changelog/).
 
 == Upgrade Notice ==
-* 2.24.4: A security release that contains cross-site request forgery issue fixes. Various features, like link preview and improved pagination for link statistics. Various tweaks and fixes. See changelog for full details. A recommended update for all.
+* 2.24.5: Various features, like a new option to enable and disable content caching and implemented pagination for link statistics. Various compatibilities, tweaks, and fixes. See the changelog for full details. A recommended update for all.
 

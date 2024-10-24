@@ -1,4 +1,3 @@
-var __webpack_exports__ = {};
 /*!***********************************!*\
   !*** ./src/admin/js/ilj_tools.js ***!
   \***********************************/
@@ -109,7 +108,7 @@ var __webpack_exports__ = {};
       $progress.after($loading);
       $uploadButton.on('click', function (e) {
         e.preventDefault();
-        $settingsFile.click();
+        $settingsFile.trigger('click');
       });
       $settingsFile.on('change', function (e) {
         e.preventDefault();
@@ -182,7 +181,7 @@ var __webpack_exports__ = {};
     });
     return this;
   };
-  $(document).ready(function () {
+  $(function () {
     $('.ilj-upload-form').applyFileImport();
     $('button.ilj-export').on('click', function () {
       var export_type = $(this).data('export');

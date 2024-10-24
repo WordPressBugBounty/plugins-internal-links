@@ -3,15 +3,14 @@
 namespace ILJ\Core\Options;
 
 use ILJ\Helper\Help;
-use ILJ\Core\Options as Options;
-use ILJ\Core\Options\MultipleKeywords;
+use ILJ\Helper\Options as OptionsHelper;
 /**
- * Option: Links per target
+ * Option: Links Per Paragraph Switch
  *
  * @package ILJ\Core\Options
- * @since   1.1.3
+ * @since   1.2.19
  */
-class LinksPerTarget extends AbstractOption
+class CacheToggleBtnSwitch extends AbstractOption
 {
     /**
      * Get the unique identifier for the option
@@ -20,7 +19,7 @@ class LinksPerTarget extends AbstractOption
      */
     public static function getKey()
     {
-        return self::ILJ_OPTIONS_PREFIX . 'links_per_target';
+        return self::ILJ_OPTIONS_PREFIX . 'cache_toggle_btn_switch';
     }
     /**
      * Get the default value of the option
@@ -29,7 +28,7 @@ class LinksPerTarget extends AbstractOption
      */
     public static function getDefault()
     {
-        return (int) 1;
+        return false;
     }
     /**
      * Get the frontend label for the option
@@ -38,7 +37,7 @@ class LinksPerTarget extends AbstractOption
      */
     public function getTitle()
     {
-        return __('Maximum frequency of how often a post gets linked within another one', 'internal-links');
+        return __('Cache', 'internal-links');
     }
     /**
      * Get the frontend description for the option
@@ -47,7 +46,7 @@ class LinksPerTarget extends AbstractOption
      */
     public function getDescription()
     {
-        return __('For an unlimited number of links, set this value to <code>0</code> .', 'internal-links');
+        return __('Enable and Disable the cache', 'internal-links');
     }
     /**
      * Outputs the options form element for backend administration
@@ -57,27 +56,7 @@ class LinksPerTarget extends AbstractOption
      */
     public function renderField($value)
     {
-        $multiple_keywords = Options::getOption(MultipleKeywords::getKey());
-        $key = self::getKey();
-        ?>
-		<input
-			type="number"
-			name="<?php 
-        echo esc_attr($key);
-        ?>"
-			id="<?php 
-        echo esc_attr($key);
-        ?>"
-			value="<?php 
-        echo esc_attr($value);
-        ?>"
-			min=0
-			<?php 
-        disabled($multiple_keywords);
-        ?>
-		/>
-		<?php 
-        Help::render_options_link('link-countings/', 'post-frequency', 'post frequency');
+        OptionsHelper::renderToggle($this, $value);
     }
     /**
      * Checks if a value is a valid value for option
@@ -87,6 +66,6 @@ class LinksPerTarget extends AbstractOption
      */
     public function isValidValue($value)
     {
-        return is_numeric($value);
+        return 1 === (int) $value || 0 === (int) $value;
     }
 }

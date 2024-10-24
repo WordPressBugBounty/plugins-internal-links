@@ -65,6 +65,7 @@ class LinksPerParagraphSwitch extends AbstractOption
      */
     public function renderField($value)
     {
+        $value = false;
         OptionsHelper::renderToggle($this, $value);
     }
     /**

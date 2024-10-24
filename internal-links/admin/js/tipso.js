@@ -175,7 +175,7 @@
       }
 
       if (obj.mode === 'hide') {
-        if ($.isFunction(obj.settings.onBeforeShow)) {
+        if ("function" === typeof obj.settings.onBeforeShow) {
           obj.settings.onBeforeShow(obj.$element, obj.element, obj);
         }
         if (obj.settings.size) {
@@ -220,7 +220,7 @@
             iljtipso_bubble.appendTo('body').stop(true, true).fadeIn(obj.settings
             .speed, function() {
               obj.mode = 'show';
-              if ($.isFunction(obj.settings.onShow)) {
+              if ("function" === typeof obj.settings.onShow) {
                 obj.settings.onShow(obj.$element, obj.element, obj);
               }
             });
@@ -235,7 +235,7 @@
                 $(this).removeClass('animated ' + obj.settings.animationIn);
               });
               obj.mode = 'show';
-              if ($.isFunction(obj.settings.onShow)) {
+              if ("function" === typeof obj.settings.onShow) {
                 obj.settings.onShow(obj.$element, obj.element, obj);
               }
               $win.off('resize' + '.' + pluginName, null, 'iljtipsoResizeHandler');
@@ -263,7 +263,7 @@
             iljtipso_bubble.stop(true, true).fadeOut(obj.settings.speed,
             function() {
               $(this).remove();
-              if ($.isFunction(obj.settings.onHide) && obj.mode === 'show') {
+              if ("function" === typeof obj.settings.onHide && obj.mode === 'show') {
                 obj.settings.onHide(obj.$element, obj.element, obj);
               }
               obj.mode = 'hide';
@@ -276,7 +276,7 @@
             .addClass('animated ' + obj.settings.animationOut)
             .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
               $(this).removeClass('animated ' + obj.settings.animationOut).remove();
-              if ($.isFunction(obj.settings.onHide) && obj.mode === 'show') {
+              if ("function" === typeof obj.settings.onHide && obj.mode === 'show') {
                 obj.settings.onHide(obj.$element, obj.element, obj);
               }
               obj.mode = 'hide';

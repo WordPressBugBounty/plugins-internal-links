@@ -3,6 +3,7 @@
 namespace ILJ\Core\Links;
 
 use ILJ\Core\LinkBuilder;
+use ILJ\Core\Options\CacheToggleBtnSwitch;
 /**
  * Factory for creating {@link Text_To_Link_Converter_Interface} instance.
  */
@@ -62,8 +63,13 @@ final class Text_To_Link_Converter_Factory
     public static function create($id, $type, $build_type = null, $content_type = 'html', $default_allowed_time_in_secs = 20): Text_To_Link_Converter_Interface
     {
         $link_builder = new LinkBuilder($id, $type, $build_type, $content_type);
-        // Put a caching layer over link builder.
-        $with_cache = new Cache_Layer($id, $type, $link_builder);
-        return new Timeout_Monitor_Layer(self::get_time_required_for_content_linking($default_allowed_time_in_secs), $with_cache);
+        $cache_option = get_option(CacheToggleBtnSwitch::getKey(), 'options');
+        if ($cache_option) {
+            // Put a caching layer over link builder.
+            $with_cache = new Cache_Layer($id, $type, $link_builder);
+            return new Timeout_Monitor_Layer(self::get_time_required_for_content_linking($default_allowed_time_in_secs), $with_cache);
+        } else {
+            return new Timeout_Monitor_Layer(self::get_time_required_for_content_linking($default_allowed_time_in_secs), $link_builder);
+        }
     }
 }

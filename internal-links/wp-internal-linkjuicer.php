@@ -4,15 +4,15 @@
 /**
  * Internal Link Juicer
  *
- * @version 2.24.4
+ * @version 2.24.5
  * @package ILJ
  *
  * @wordpress-plugin
  * Plugin Name: Internal Link Juicer
  * Plugin URI: https://www.internallinkjuicer.com
- * Version: 2.24.4
+ * Version: 2.24.5
  * Description: A performant solution for high class internal linkbuilding automation.
- * Author: Internal Link Juicer
+ * Author: TeamUpdraft
  * Author URI: https://www.internallinkjuicer.com
  * License: GPL v3
  * Domain Path: /languages/
@@ -45,7 +45,7 @@ if (!function_exists('add_filter')) {
     exit;
 }
 if (!defined('ILJ_VERSION')) {
-    define('ILJ_VERSION', '2.24.4');
+    define('ILJ_VERSION', '2.24.5');
 }
 if (!defined('ILJ_FILE')) {
     define('ILJ_FILE', __FILE__);
@@ -58,6 +58,9 @@ if (!defined('ILJ_URL')) {
 }
 if (!defined('ILJ_NAME')) {
     define('ILJ_NAME', plugin_basename(ILJ_FILE));
+}
+if (!defined('ILJ_FREEMIUS_PLUGIN_ID')) {
+    define('ILJ_FREEMIUS_PLUGIN_ID', '2610');
 }
 if (function_exists('\ILJ\ilj_fs')) {
     ilj_fs()->set_basename(false, __FILE__);
@@ -72,7 +75,7 @@ if (function_exists('\ILJ\ilj_fs')) {
             if (is_plugin_active_for_network(ILJ_NAME)) {
                 $first_path = '';
             }
-            $ilj_fs = fs_dynamic_init(array('id' => '2610', 'slug' => 'internal-links', 'type' => 'plugin', 'public_key' => 'pk_624b0309eb6afc65f81d070e79fcd', 'is_premium' => false, 'premium_suffix' => '(Pro)', 'has_addons' => false, 'has_paid_plans' => true, 'trial' => array('days' => 14, 'is_require_payment' => true), 'has_affiliation' => 'selected', 'menu' => array('slug' => 'internal_link_juicer', 'first-path' => $first_path, 'support' => false, 'affiliation' => false), 'is_live' => true));
+            $ilj_fs = fs_dynamic_init(array('id' => ILJ_FREEMIUS_PLUGIN_ID, 'slug' => 'internal-links', 'type' => 'plugin', 'public_key' => 'pk_624b0309eb6afc65f81d070e79fcd', 'is_premium' => false, 'premium_suffix' => '(Pro)', 'has_addons' => false, 'has_paid_plans' => true, 'trial' => array('days' => 14, 'is_require_payment' => true), 'has_affiliation' => 'selected', 'menu' => array('slug' => 'internal_link_juicer', 'first-path' => $first_path, 'support' => false, 'affiliation' => false), 'is_live' => true));
         }
         return $ilj_fs;
     }

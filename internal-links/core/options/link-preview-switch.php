@@ -65,6 +65,7 @@ class Link_Preview_Switch extends AbstractOption
      */
     public function renderField($value)
     {
+        $value = false;
         OptionsHelper::renderToggle($this, $value);
     }
     /**

@@ -33,10 +33,10 @@ class Cache_Layer extends Layer
     /**
      * Return the linked content.
      *
-     * @param string $content
-     * @return string
+     * @param mixed $content The content value passed to cache link value into
+     * @return mixed 		 Mixed return value to cater different content compatibilities
      */
-    public function link_content(string $content): string
+    public function link_content($content)
     {
         $cached_content = Transient_Cache::get_cache_for_content($this->id, $this->type, $content);
         if ($cached_content) {
