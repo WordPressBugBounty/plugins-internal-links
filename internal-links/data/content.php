@@ -225,7 +225,8 @@ final class Content
      */
     private function get_cpt_singular_name()
     {
-        return get_post_type_object($this->sub_type)->labels->singular_name;
+        $post_type_object = get_post_type_object($this->sub_type);
+        return ($post_type_object && isset($post_type_object->labels->singular_name)) ? $post_type_object->labels->singular_name : 'Unknown Post Type';
     }
     /**
      * Get taxonomy singular name.
@@ -234,7 +235,8 @@ final class Content
      */
     private function get_taxonomy_singular_name()
     {
-        return get_taxonomy($this->get_sub_type())->labels->singular_name;
+        $taxonomy_object = get_taxonomy($this->get_sub_type());
+        return ($taxonomy_object && isset($taxonomy_object->labels->singular_name)) ? $taxonomy_object->labels->singular_name : 'Unknown Taxonomy';
     }
     /**
      * Get sub type of content.

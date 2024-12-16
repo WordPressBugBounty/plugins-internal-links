@@ -10,7 +10,7 @@
  * @wordpress-plugin
  * Plugin Name: Internal Link Juicer
  * Plugin URI: https://www.internallinkjuicer.com
- * Version: 2.24.5
+ * Version: 2.24.6
  * Description: A performant solution for high class internal linkbuilding automation.
  * Author: TeamUpdraft
  * Author URI: https://www.internallinkjuicer.com
@@ -45,7 +45,7 @@ if (!function_exists('add_filter')) {
     exit;
 }
 if (!defined('ILJ_VERSION')) {
-    define('ILJ_VERSION', '2.24.5');
+    define('ILJ_VERSION', '2.24.6');
 }
 if (!defined('ILJ_FILE')) {
     define('ILJ_FILE', __FILE__);

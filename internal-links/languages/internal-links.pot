@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: Team Updraft <support@internallinkjuicer.com>\n"
 "Last-Translator: Team Updraft <support@internallinkjuicer.com>\n"
-"POT-Creation-Date: 2024-10-24 17:13+0000\n"
+"POT-Creation-Date: 2024-12-16 10:54+0000\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/internal-links\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
@@ -361,7 +361,7 @@ msgstr ""
 msgid "Edit %s"
 msgstr ""
 
-#: src/data/content.php:300, src/data/content.php:298
+#: src/data/content.php:302, src/data/content.php:300
 msgid "View %s"
 msgstr ""
 
@@ -429,99 +429,99 @@ msgstr ""
 msgid "Sourcecode"
 msgstr ""
 
-#: src/helper/ajax.php:130
+#: src/helper/ajax.php:134
 msgid "Index rebuild successfully scheduled."
 msgstr ""
 
-#: src/helper/ajax.php:135
+#: src/helper/ajax.php:139
 msgid "There has been an error in initiating the index rebuild."
 msgstr ""
 
-#: src/helper/ajax.php:236, src/backend/menupage/dashboard.php:312, src/backend/menupage/dashboard.php:349
+#: src/helper/ajax.php:240, src/backend/menupage/dashboard.php:312, src/backend/menupage/dashboard.php:349
 msgid "Edit"
 msgstr ""
 
-#: src/helper/ajax.php:237, src/backend/menupage/dashboard.php:313, src/backend/menupage/dashboard.php:350
+#: src/helper/ajax.php:241, src/backend/menupage/dashboard.php:313, src/backend/menupage/dashboard.php:350
 msgid "Open"
 msgstr ""
 
-#: src/helper/ajax.php:239, src/backend/menupage/dashboard.php:310
+#: src/helper/ajax.php:243, src/backend/menupage/dashboard.php:310
 msgid "Show incoming links"
 msgstr ""
 
-#: src/helper/ajax.php:240, src/backend/menupage/dashboard.php:311
+#: src/helper/ajax.php:244, src/backend/menupage/dashboard.php:311
 msgid "Show outgoing links"
 msgstr ""
 
-#: src/helper/ajax.php:268
+#: src/helper/ajax.php:272
 msgid "Show usage"
 msgstr ""
 
-#: src/helper/ajax.php:304, src/helper/ajax.php:386
+#: src/helper/ajax.php:308, src/helper/ajax.php:390
 msgid "Source"
 msgstr ""
 
-#: src/helper/ajax.php:302, src/helper/ajax.php:386, src/posttypes/customlinks.php:285
+#: src/helper/ajax.php:306, src/helper/ajax.php:390, src/posttypes/customlinks.php:285
 msgid "Target"
 msgstr ""
 
-#: src/helper/ajax.php:307, src/helper/export.php:33, src/backend/menupage/dashboard.php:85
+#: src/helper/ajax.php:311, src/helper/export.php:33, src/backend/menupage/dashboard.php:85
 msgid "Type"
 msgstr ""
 
-#: src/helper/ajax.php:307, src/backend/menupage/dashboard.php:77, src/backend/menupage/dashboard.php:290
+#: src/helper/ajax.php:311, src/backend/menupage/dashboard.php:77, src/backend/menupage/dashboard.php:290
 msgid "Anchor text"
 msgstr ""
 
-#: src/helper/ajax.php:351
+#: src/helper/ajax.php:355
 msgid "With the free basic version you can view the first 3 links in the detail view."
 msgstr ""
 
-#: src/helper/ajax.php:352, src/helper/ajax.php:412
+#: src/helper/ajax.php:356, src/helper/ajax.php:416
 msgid "Upgrade to Pro and view all"
 msgstr ""
 
-#: src/helper/ajax.php:386
+#: src/helper/ajax.php:390
 msgid "Source type"
 msgstr ""
 
-#: src/helper/ajax.php:386
+#: src/helper/ajax.php:390
 msgid "Target type"
 msgstr ""
 
-#: src/helper/ajax.php:411
+#: src/helper/ajax.php:415
 msgid "The detail view for anchor texts is part of the Pro version."
 msgstr ""
 
-#: src/helper/ajax.php:507
+#: src/helper/ajax.php:511
 msgid "Your web host does not allow file uploads."
 msgstr ""
 
-#: src/helper/ajax.php:507
+#: src/helper/ajax.php:511
 msgid "Please fix the problem and try again."
 msgstr ""
 
-#: src/helper/ajax.php:555
+#: src/helper/ajax.php:559
 msgid "Timeout."
 msgstr ""
 
-#: src/helper/ajax.php:555
+#: src/helper/ajax.php:559
 msgid "Please try to upload again"
 msgstr ""
 
-#: src/helper/ajax.php:572
+#: src/helper/ajax.php:576
 msgid "Nothing to import or no data for import found."
 msgstr ""
 
-#: src/helper/ajax.php:650
+#: src/helper/ajax.php:654
 msgid "The Caches were cleared."
 msgstr ""
 
-#: src/helper/ajax.php:727
+#: src/helper/ajax.php:731
 msgid "The cache for the %s has been cleared."
 msgstr ""
 
-#: src/helper/ajax.php:727
+#: src/helper/ajax.php:731
 msgid "The cache for the term has been cleared."
 msgstr ""
 
@@ -897,11 +897,11 @@ msgstr ""
 msgid "Note: For the case your index build gets stuck, you can restart the index build here"
 msgstr ""
 
-#: src/backend/menupage/keywords-editor.php:24, src/backend/menupage/keywords-editor.php:43
+#: src/backend/menupage/keywords-editor.php:24, src/backend/menupage/keywords-editor.php:44
 msgid "Keywords Editor"
 msgstr ""
 
-#: src/backend/menupage/keywords-editor.php:59
+#: src/backend/menupage/keywords-editor.php:60
 msgid "Search"
 msgstr ""
 
@@ -998,7 +998,7 @@ msgid "Loading"
 msgstr ""
 
 #: src/backend/menupage/tools.php:89
-msgid "An error occured."
+msgid "An error occurred."
 msgstr ""
 
 #: src/backend/menupage/tools.php:89
@@ -1678,7 +1678,7 @@ msgid "Add your desired keyword to the appropriate input field and confirm using
 msgstr ""
 
 #: src/backend/menupage/tour/editor.php:47
-msgid "You can add your desired keywords one by one or by seperating them with commas."
+msgid "You can add your desired keywords one by one or by separating them with commas."
 msgstr ""
 
 #: src/backend/menupage/tour/editor.php:49
@@ -1918,7 +1918,7 @@ msgid "After activating the Pro version, the Keyword Editor includes taxonomies 
 msgstr ""
 
 #: src/backend/menupage/tour/pro.php:48
-msgid "From then on, even <strong>taxonmy descriptions</strong> are used as linkable content."
+msgid "From then on, even <strong>taxonomy descriptions</strong> are used as linkable content."
 msgstr ""
 
 #: src/backend/menupage/tour/pro.php:50

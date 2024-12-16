@@ -57,7 +57,7 @@ class Tools extends AbstractMenuPage
      */
     protected static function getTranslation()
     {
-        $translation = array('loading' => __('Loading', 'internal-links'), 'error' => __('An error occured.', 'internal-links') . ' ' . __('Please try again.', 'internal-links'), 'close' => __('Close', 'internal-links'), 'start_import' => __('Start import', 'internal-links'), 'cancel_import' => __('Cancel', 'internal-links'), 'upload_success' => __('The upload was successful.', 'internal-links') . ' ' . __('You can now start importing the uploaded data.', 'internal-links'), 'import_success' => __('Import completed successfully.', 'internal-links'), 'upload_error_filesize' => __('The upload exceeds the maximum allowed file size.', 'internal-links'));
+        $translation = array('loading' => __('Loading', 'internal-links'), 'error' => __('An error occurred.', 'internal-links') . ' ' . __('Please try again.', 'internal-links'), 'close' => __('Close', 'internal-links'), 'start_import' => __('Start import', 'internal-links'), 'cancel_import' => __('Cancel', 'internal-links'), 'upload_success' => __('The upload was successful.', 'internal-links') . ' ' . __('You can now start importing the uploaded data.', 'internal-links'), 'import_success' => __('Import completed successfully.', 'internal-links'), 'upload_error_filesize' => __('The upload exceeds the maximum allowed file size.', 'internal-links'));
         return $translation;
     }
     /**

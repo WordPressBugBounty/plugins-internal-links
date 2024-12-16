@@ -103,7 +103,7 @@ class Statistic
         return $anchors;
     }
     /**
-     * A configureable wrapper for the aggregation of columns of the linkindex
+     * A configurable wrapper for the aggregation of columns of the linkindex
      *
      * @deprecated
      * @since      1.0.0

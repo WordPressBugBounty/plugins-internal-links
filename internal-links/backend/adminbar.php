@@ -44,7 +44,7 @@ class AdminBar
             self::add_cache_menu_items($admin_bar);
         }
         $args = array('parent' => 'ilj', 'id' => 'ilj-status', 'title' => '<div class="ilj-build-title"><strong>Status:</strong> <span  id="ilj_batch_status">' . HelperBatchInfo::translateBatchStatus($status) . '</span></div>', 'meta' => array('html' => '
-				<hr class="ilj-build-seperate" />
+				<hr class="ilj-build-separate" />
                 <div class="ilj-build-info">
                 	<p>
                 		<span class="dashicons ilj_info_icon"></span>

@@ -23,7 +23,7 @@ class Export
      *
      * @since  1.2.0
      * @param  bool $verbose 				 Permits echo of headline output if true
-     * @param  bool $include_additional_cols Permits output of additional colums
+     * @param  bool $include_additional_cols Permits output of additional columns
      * @return string
      */
     public static function printCsvHeadline($verbose = false, $include_additional_cols = false)
@@ -46,7 +46,7 @@ class Export
      * @since  1.2.0
      * @param  bool $empty   				 Flag for output of empty entries
      * @param  bool $verbose 				 Permits echo of CSV output if true
-     * @param  bool $include_additional_cols Permits output of additional colums
+     * @param  bool $include_additional_cols Permits output of additional columns
      * @return string
      */
     public static function printCsvPosts($empty, $verbose = false, $include_additional_cols = false)

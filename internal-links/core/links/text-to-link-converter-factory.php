@@ -67,9 +67,9 @@ final class Text_To_Link_Converter_Factory
         if ($cache_option) {
             // Put a caching layer over link builder.
             $with_cache = new Cache_Layer($id, $type, $link_builder);
-            return new Timeout_Monitor_Layer(self::get_time_required_for_content_linking($default_allowed_time_in_secs), $with_cache);
+            return new Timeout_Monitor_Layer(self::get_time_required_for_content_linking((int) $default_allowed_time_in_secs), $with_cache);
         } else {
-            return new Timeout_Monitor_Layer(self::get_time_required_for_content_linking($default_allowed_time_in_secs), $link_builder);
+            return new Timeout_Monitor_Layer(self::get_time_required_for_content_linking((int) $default_allowed_time_in_secs), $link_builder);
         }
     }
 }
