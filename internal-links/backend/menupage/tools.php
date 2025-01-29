@@ -161,7 +161,8 @@ class Tools extends AbstractMenuPage
         $output .= '</div>';
         $output .= '<div class="ilj-row">';
         $output .= '<div class="col-6">';
-        $output .= __(sprintf('Include additional columns (%s)', Export::ILJ_ADDITIONAL_COLUMNS), 'internal-links');
+        /* translators: %s: Additional Columns */
+        $output .= sprintf(__('Include additional columns (%s)', 'internal-links'), Export::ILJ_ADDITIONAL_COLUMNS);
         $output .= '</div>';
         $output .= '<div class="col-1">';
         $output .= Options::getToggleField('ilj-export-additional-columns', '');
@@ -286,7 +287,10 @@ class Tools extends AbstractMenuPage
         if ($current_screen->base != $this->page_hook) {
             return;
         }
-        $export_request = isset($_GET['ilj_export']) ? $_GET['ilj_export'] : null;
+        if (!isset($_GET['nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_GET['nonce'])), 'ilj-tools')) {
+            return;
+        }
+        $export_request = isset($_GET['ilj_export']) ? sanitize_text_field(wp_unslash($_GET['ilj_export'])) : null;
         if (!$export_request || !in_array($export_request, array('settings', 'keywords'))) {
             return;
         }
@@ -296,7 +300,7 @@ class Tools extends AbstractMenuPage
             case 'settings':
                 header('Content-type: application/json; charset=utf-8');
                 header(sprintf('Content-disposition: attachment; filename="%s.json"', $file_name));
-                echo json_encode(\ILJ\Core\Options::exportOptions(), JSON_UNESCAPED_SLASHES);
+                echo wp_json_encode(\ILJ\Core\Options::exportOptions(), JSON_UNESCAPED_SLASHES);
                 die("");
                 break;
             case 'keywords':

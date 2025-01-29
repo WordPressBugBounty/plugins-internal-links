@@ -212,8 +212,10 @@ final class Content
     public function get_edit_title()
     {
         if ('post' === $this->get_type()) {
+            /* translators: %s: Post Type Title */
             return sprintf(__('Edit %s', 'internal-links'), $this->get_cpt_singular_name());
         } elseif ('term' === $this->get_type()) {
+            /* translators: %s: Taxonomy Title */
             return sprintf(__('Edit %s', 'internal-links'), $this->get_taxonomy_singular_name());
         }
         return '';
@@ -269,8 +271,10 @@ final class Content
     public function get_permalink_title()
     {
         if ('post' === $this->get_type()) {
+            /* translators: %s: Post Type Title */
             return sprintf(__('View %s', 'internal-links'), $this->get_cpt_singular_name());
         } elseif ('term' === $this->get_type()) {
+            /* translators: %s: Taxonomy Title */
             return sprintf(__('View %s', 'internal-links'), $this->get_taxonomy_singular_name());
         }
         return '';

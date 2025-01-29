@@ -7,7 +7,7 @@ Tags: seo, internal links, automatic linking, linkbuilding, onpage, auto linker,
 Requires at least: 5.9.0
 Tested up to: 6.7
 Requires PHP: 7.1.0
-Stable tag: 2.24.6
+Stable tag: 2.25.1
 
 Improve your SEO and your user experience through internal linkbuilding. Automated links between your posts based on a smart keyword configuration.
 
@@ -128,6 +128,14 @@ The Pro version also provides a direct import of __post (and term) titles__ or, 
 7. Import and Export Section - Here you can easily import and export plugin settings or your configured keywords.
 
 == Changelog ==
+
+= 2.24.7 - 27/Jan/2025 =
+* COMPATIBILITY: Update Freemius SDK to version 2.11.0.
+* FIX: Implemented additional checks for posts/terms before scheduling incoming/outgoing index rebuild to optimize performance.
+* FIX: Fixed a PHP deprecation warning caused by implicit float-to-integer conversion in the get_time_required_for_content_linking method of Text_To_Link_Converter_Factory.
+* REFACTOR: Make the plugin compatible with the Plugin Checks (PCP) plugin, which is specific to the "Plugin Repo" and "Security" categories.
+* REFACTOR: Remove the unneeded ILJ\Backend\MenuPage::processIndexRebuilding() method because it doesn't called from anywhere.
+
 
 = 2.24.6 - 17/Dec/2024 =
 
@@ -283,5 +291,4 @@ Release Date: December 2nd, 2022
 For the complete changelog, please refer to [https://www.internallinkjuicer.com/changelog/](https://www.internallinkjuicer.com/changelog/).
 
 == Upgrade Notice ==
-* 2.24.6: Various fixes and tweaks. See the changelog for full details. A recommended update for all.
-
+* 2.25.1: Various fixes, tweaks, and refactors. See the changelog for full details. A recommended update for all.

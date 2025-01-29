@@ -23,7 +23,7 @@ final class Text_To_Link_Converter_Factory
         $elapsed_time_in_secs = time() - intval($_SERVER['REQUEST_TIME']);
         $available_time_in_secs = intval(ini_get('max_execution_time')) - $elapsed_time_in_secs;
         // use 70 percent of available time.
-        $time_in_secs = round(0.7 * $available_time_in_secs, 2);
+        $time_in_secs = (int) round(0.7 * $available_time_in_secs, 2);
         /**
          * There can be two scenarios
          *

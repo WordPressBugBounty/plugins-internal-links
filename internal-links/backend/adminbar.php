@@ -72,7 +72,13 @@ class AdminBar
         if (is_category() || is_tag() || is_tax() || is_singular()) {
             $id = get_queried_object_id();
             $type = is_singular() ? 'post' : 'term';
-            $args = array('parent' => 'ilj', 'id' => 'ilj-clear-single-transient', 'title' => ('post' === $type) ? sprintf(__('Delete this %s cache', 'internal-links'), get_post_type($id)) : __('Delete this term cache', 'internal-links'), 'href' => admin_url(sprintf('admin-ajax.php?action=%s&_wpnonce=%s&ilj_transient_id=%d&ilj_transient_type=%s', 'ilj_clear_single_transient', wp_create_nonce('ilj_clear_single_transient'), $id, $type)));
+            $args = array(
+                'parent' => 'ilj',
+                'id' => 'ilj-clear-single-transient',
+                /* translators: %s: Post Type */
+                'title' => ('post' === $type) ? sprintf(__('Delete this %s cache', 'internal-links'), get_post_type($id)) : __('Delete this term cache', 'internal-links'),
+                'href' => admin_url(sprintf('admin-ajax.php?action=%s&_wpnonce=%s&ilj_transient_id=%d&ilj_transient_type=%s', 'ilj_clear_single_transient', wp_create_nonce('ilj_clear_single_transient'), $id, $type)),
+            );
             $admin_bar->add_node($args);
         }
     }

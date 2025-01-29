@@ -35,8 +35,8 @@ class Export
         }
         $headline = vsprintf(implode(self::ILJ_EXPORT_FIELD_SEPARATOR, $headline_format), $titles);
         if (!$verbose) {
-            echo $headline;
             // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Ignored since the data is printed to csv file.
+            echo $headline;
         }
         return $headline;
     }
@@ -73,8 +73,8 @@ class Export
             $csv_curr = "\r\n";
             $csv_curr .= vsprintf(implode(self::ILJ_EXPORT_FIELD_SEPARATOR, $row_format), $row_data);
             if (!$verbose) {
-                echo $csv_curr;
                 // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Ignored since the data is printed to csv file.
+                echo $csv_curr;
             }
             $csv .= $csv_curr;
         }
@@ -97,7 +97,7 @@ class Export
         foreach ($addcols as $colidx => $ac) {
             if (is_array($row_data)) {
                 if ($is_headline) {
-                    $row_data[] = __($ac);
+                    $row_data[] = $ac;
                 } else {
                     $row_data[] = array_shift($add_values);
                 }
