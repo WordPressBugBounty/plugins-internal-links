@@ -5,9 +5,9 @@ License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl.html
 Tags: seo, internal links, automatic linking, linkbuilding, onpage, auto linker, ux, link, links
 Requires at least: 5.9.0
-Tested up to: 6.7
+Tested up to: 6.8
 Requires PHP: 7.1.0
-Stable tag: 2.25.1
+Stable tag: 2.25.2
 
 Improve your SEO and your user experience through internal linkbuilding. Automated links between your posts based on a smart keyword configuration.
 
@@ -129,13 +129,25 @@ The Pro version also provides a direct import of __post (and term) titles__ or, 
 
 == Changelog ==
 
+= 2.25.2 - 08//May/2025 =
+* FEATURE: Added a notice and duplicate list for repeated keywords during input.
+* FIX: Added a fallback mechanism to check for table existence and avoid potential database errors caused by attempting to rename non-existent tables.
+* FIX: Fixed an error with import functions.
+* FIX: Resolved an issue where the incoming links option did not function correctly when triggering individual index builds.
+* FIX: Use the {wpdb_prefix}posts table's collation as the basis for the ILJ LinkIndex table collation.
+* FIX: Resolved an issue with pagination on the Keywords Editor page.
+* REFACTOR: Improve PCP plugin compatibility.
+* TWEAK: Add Updraft notices.
+* TWEAK: Replace the updraftplus.com URL with teamupdraft.com.
+* TWEAK: Replaced the Select2 library with the latest version 4.1.0-rc.0.
+* TWEAK: Use the allow_classes option when calls to unserialize() if the server PHP version is greater than or equal to 7.0.
+
 = 2.24.7 - 27/Jan/2025 =
 * COMPATIBILITY: Update Freemius SDK to version 2.11.0.
 * FIX: Implemented additional checks for posts/terms before scheduling incoming/outgoing index rebuild to optimize performance.
 * FIX: Fixed a PHP deprecation warning caused by implicit float-to-integer conversion in the get_time_required_for_content_linking method of Text_To_Link_Converter_Factory.
 * REFACTOR: Make the plugin compatible with the Plugin Checks (PCP) plugin, which is specific to the "Plugin Repo" and "Security" categories.
 * REFACTOR: Remove the unneeded ILJ\Backend\MenuPage::processIndexRebuilding() method because it doesn't called from anywhere.
-
 
 = 2.24.6 - 17/Dec/2024 =
 
@@ -145,7 +157,6 @@ The Pro version also provides a direct import of __post (and term) titles__ or, 
 * FIX: Fixed a PHP deprecation warning caused by implicit float-to-integer conversion in the create method of Text_To_Link_Converter_Factory.
 * FIX: Resolved a UI issue where long keywords overflowed in the "Select" dropdown on the Keyword Editor screen. Added ellipsis truncation and hover tooltips.
 * TWEAK: Improve accessibility of Link statistics action links.
-
 
 = 2.24.5 - 23/Oct/2024 =
 
@@ -291,4 +302,4 @@ Release Date: December 2nd, 2022
 For the complete changelog, please refer to [https://www.internallinkjuicer.com/changelog/](https://www.internallinkjuicer.com/changelog/).
 
 == Upgrade Notice ==
-* 2.25.1: Various fixes, tweaks, and refactors. See the changelog for full details. A recommended update for all.
+* 2.25.2: A feature to check duplicate keywords. Various fixes, tweaks, and refactors. See the changelog for full details. A recommended update for all.

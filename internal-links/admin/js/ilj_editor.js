@@ -43,11 +43,11 @@
       return $('<div />').append($toggleField).html();
     };
     var get_upgrade_button = function (pro = false) {
-      $button = '';
+      var button = '';
       if (pro) {
-        $button = '<button class="ilj-upgrade-to-pro-button" ilj-link-target="' + ilj_editor_translation.upgrade_to_pro_link + '">' + ilj_editor_translation.upgrade_to_pro_button_text + '</button>';
+        button = '<button class="ilj-upgrade-to-pro-button" ilj-link-target="' + ilj_editor_translation.upgrade_to_pro_link + '">' + ilj_editor_translation.upgrade_to_pro_button_text + '</button>';
       }
-      return $button;
+      return button;
     };
 
     /**
@@ -65,6 +65,7 @@
       limitoutgoingField: $(elem).find('input[name="ilj_limitoutgoinglinks"]'),
       maxoutgoinglimitField: $(elem).find('input[name="ilj_maxoutgoinglinks"]'),
       errorMessage: $('<div class="error-feedback"></div>'),
+      duplicate_notice: $('<div class="ilj-duplicate-notice"></div>'),
       keywordInputInfo: $('<span class="dashicons dashicons-info"></span>').css({
         'margin-top': '10px'
       }).iljtipso({
@@ -164,7 +165,7 @@
       limitOutgoingLinks: $('   <div class="input-gui limit-outgoing-links ilj-row ' + ilj_editor_basic_restriction.disable_setting + '" ' + ilj_editor_basic_restriction.disabled + ' >' + '       <div class="input-gui ilj-row ilj-editor-settings-field">' + '           <div class="col-7 limit-outgoing-links-label">' + '               <label><span ' + ilj_editor_basic_restriction.disable_title + '>' + ilj_editor_basic_restriction.lock_icon + ilj_editor_translation.limit_outgoing_links + '</span></label>' + '           </div>' + '           <div class="col-5 ilj-limit-outgoing-links-toggle">' + getToggleField('limitoutgoinglinks', false, ilj_editor_basic_restriction.is_active) + '           </div>' + '       </div>' + get_upgrade_button(ilj_editor_basic_restriction.is_active) + '   </div>'),
       maxOutgoingLinks: $('       <div class="input-gui max-outgoing-links ilj-row ' + ilj_editor_basic_restriction.disable_setting + '" style="display:none;" ' + ilj_editor_basic_restriction.disabled + '>' + '           <div class="col-7">' + '               <label><span ' + ilj_editor_basic_restriction.disable_title + '>' + ilj_editor_basic_restriction.lock_icon + ilj_editor_translation.max_outgoing_links + '</span></label>' + '           </div>' + '           <div class="col-5">' + '               <input type="number" class="maxoutgoinglinks ' + ilj_editor_basic_restriction.disable_setting + '" min="1" value="1" name="ilj_maxoutgoinglinks" ' + ilj_editor_basic_restriction.disabled + ' >' + '           </div>' + '       </div>'),
       blacklistStatus: $('   <div class="input-gui ilj-row blacklistStatus ilj-editor-settings-field">' + '       <div class="col-7 blacklist-status-label">' + '           <label>' + ilj_editor_translation.is_blacklisted + '</label>' + '       </div>' + '       <div class="col-5 ilj-blacklist-status-toggle">' + getToggleField('is_blacklisted', false) + '       </div>' + '   </div>'),
-      blacklistKeywords: $('   <div class="input-gui ilj-row blacklistKeyword">' + '       <div class="col-12">' + '           <label>' + ilj_editor_translation.blacklist_incoming_links + '</label>' + '           <input class="keywordInput" type="text" name="blacklistkeyword"></input>' + '           <a class="button add-keyword">' + ilj_editor_translation.add_keyword + '</a>' + '       </div>' + '       <div class="col-12 keyword-view-gui blacklistView">' + '           <h4>' + ilj_editor_translation.headline_configured_keywords_blacklist + '</h4>' + '           <ul class="keyword-view" role="list"></ul>' + '       </div>' + '   </div>'),
+      blacklistKeywords: $('   <div class="input-gui ilj-row blacklistKeyword">' + '       <div class="col-12">' + '           <label>' + ilj_editor_translation.blacklist_incoming_links + '</label>' + '           <input class="keywordInput" type="text" name="blacklistkeyword"></input>' + '           <a class="button add-keyword" blacklist-keyword="true">' + ilj_editor_translation.add_keyword + '</a>' + '       </div>' + '       <div class="col-12 keyword-view-gui blacklistView">' + '           <h4>' + ilj_editor_translation.headline_configured_keywords_blacklist + '</h4>' + '           <ul class="keyword-view" role="list"></ul>' + '       </div>' + '   </div>'),
       limitLinksPerParagraph: $('   <div class="input-gui ilj-row limit-links-per-paragraph ' + ilj_editor_basic_restriction.disable_setting + '" ' + ilj_editor_basic_restriction.disabled + '>' + '       <div class="input-gui ilj-row ilj-editor-settings-field">' + '           <div class="col-7 limit-links-per-paragraph-label">' + '               <label ><span ' + ilj_editor_basic_restriction.disable_title + '>' + ilj_editor_basic_restriction.lock_icon + ilj_editor_translation.limit_links_per_paragraph + '</span></label>' + '           </div>' + '           <div class="col-5 ilj-limit-links-per-paragraph-toggle">' + getToggleField('limitlinksperparagraph', false, ilj_editor_basic_restriction.is_active) + '           </div>' + '       </div>' + '   </div>'),
       linksPerParagraph: $('   <div class="input-gui max-limit-links-in-paragraph ilj-row  ' + ilj_editor_basic_restriction.disable_setting + '" style="display:none;"  ' + ilj_editor_basic_restriction.disabled + '>' + '       <div class="col-7">' + '           <label><span ' + ilj_editor_basic_restriction.disable_title + '>' + ilj_editor_basic_restriction.lock_icon + ilj_editor_translation.max_links_per_paragraph + '</span></label>' + '       </div>' + '       <div class="col-5">' + '           <input class="maxlinksperparagraph ' + ilj_editor_basic_restriction.disable_setting + '" type="number" min="1" value="1" name="ilj_linksperparagraph"  ' + ilj_editor_basic_restriction.disabled + '>' + '       </div>' + '   </div>' + '   <br>'),
       footer: $('#ilj_keyword_metabox_footer').html(),
@@ -210,6 +211,7 @@
         this.keywords = this.inputGui.ilj_keywords({
           inputField: this.inputField,
           errorMessage: this.errorMessage,
+          duplicate_notice: this.duplicate_notice,
           requiresPro: false,
           sortable: true
         });
@@ -374,5 +376,15 @@
     jQuery('.pro-setting').on('click', function () {
       window.open(ilj_editor_translation.upgrade_to_pro_link, '_blank');
     });
+    var id = null;
+    var type = null;
+    var url_params = new URLSearchParams(window.location.search);
+    if ($('#post_ID').length) {
+      id = $('#post_ID').val();
+      type = $('#post_type').val();
+    } else if (url_params.get('tag_ID')) {
+      id = url_params.get('tag_ID');
+      type = url_params.get('taxonomy');
+    }
   });
 })(jQuery);

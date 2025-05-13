@@ -1,3 +1,7 @@
+td.keywords.column-keywords {
+    display: flex
+}
+
 li.ilj-select2-selection__choice {
     max-width: 150px;
     overflow: hidden;
@@ -6,6 +10,93 @@ li.ilj-select2-selection__choice {
 
 .ilj-select2-container--default .ilj-select2-selection--multiple .ilj-select2-selection__rendered {
     width: 100% !important
+}
+
+.ilj-duplicate-notice {
+    background: #fff;
+    border: 1px solid #ccd0d4;
+    border-left: 4px solid blue;
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,0.1);
+    padding: 6px 12px;
+    box-sizing: border-box;
+    position: relative;
+    padding-right: 25px;
+    cursor: pointer;
+    display: none
+}
+
+.ilj-dismiss-notice {
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    transform: translateY(-50%);
+    color: #AAAAAA;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold
+}
+
+.ilj-dismiss-notice:hover {
+    color: #A8A8A8
+}
+
+.ilj-keyword-duplicate-details-table {
+    min-width: 100% !important;
+    border-collapse: separate;
+    border-spacing: 0
+}
+
+.ilj-keyword-duplicate-details-table thead tr {
+    position: sticky;
+    top: -1px;
+    background: #fff
+}
+
+.ilj-keyword-duplicate-details-table thead th {
+    text-align: left;
+    padding: 11px 10px 10px 10px !important;
+    border-bottom: 1px solid #ddd
+}
+
+.ilj-keyword-duplicate-details-table tr td {
+    border-top: 1px solid #ddd;
+    padding: 8px 10px
+}
+
+.ilj-keyword-duplicate-details-table tbody tr:first-child td {
+    border-top: none
+}
+
+.ilj-keyword-duplicate-details-table tr th:first-child,.ilj-keyword-duplicate-details-table tr td:first-child {
+    padding-left: 15px
+}
+
+.ilj-keyword-duplicate-details-table tr th:last-child,.ilj-keyword-duplicate-details-table tr td:last-child {
+    padding-right: 15px
+}
+
+.ilj-keyword-duplicate-details-table tr.odd {
+    background-color: #f9f9f9
+}
+
+.ilj-keyword-duplicate-details-table td.type span {
+    border-radius: 10px;
+    padding: 2px 6px;
+    color: #fff;
+    font-size: 12px;
+    background: #595758
+}
+
+.ilj-keyword-duplicate-details-table td.type span[data-type="post"] {
+    background: #595758
+}
+
+.ilj-keyword-duplicate-details-table td.type span[data-type="term"] {
+    background: #467186
+}
+
+.ilj-keyword-duplicate-details-table td.type span[data-type="custom"] {
+    background: #D36135
 }
 
 .ilj_modal_wrap {

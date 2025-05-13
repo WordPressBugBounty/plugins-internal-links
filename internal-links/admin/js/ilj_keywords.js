@@ -9,6 +9,7 @@
     var settings = $.extend({
       inputField: '',
       errorMessage: '',
+      duplicate_notice: '',
       requiresPro: false,
       sortable: true
     }, options);
@@ -57,6 +58,27 @@
         elem.on('click', 'a.add-keyword', function (e) {
           e.preventDefault();
           var keyword_input = $(this).siblings('input.keywordInput');
+          var id = null;
+          var type = null;
+          var sub_type = null;
+          var url_params = new URLSearchParams(window.location.search);
+          var is_for_blacklisted_keyword = false;
+          if ($(this).attr('blacklist-keyword') === 'true') {
+            is_for_blacklisted_keyword = true;
+          }
+          if ($('#post_ID').length) {
+            id = $('#post_ID').val();
+            sub_type = $('#post_type').val();
+            if ('ilj_customlinks' !== sub_type) {
+              type = 'post';
+            } else {
+              type = sub_type;
+            }
+          } else if (url_params.get('tag_ID')) {
+            id = url_params.get('tag_ID');
+            sub_type = url_params.get('taxonomy');
+            type = 'term';
+          }
           if (keyword_input.val().indexOf(',') !== -1) {
             var keywords = keyword_input.val().split(',');
             keywords.forEach(function (keyword, index) {

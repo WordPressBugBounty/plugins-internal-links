@@ -4,8 +4,22 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit2b64b6a5c6225ec23ee2bb9bae42ecab
+class ComposerStaticInite9d012ee689dcaace04b3383ebe93482
 {
+    public static $prefixLengthsPsr4 = array (
+        'B' => 
+        array (
+            'Brumann\\Polyfill\\' => 17,
+        ),
+    );
+
+    public static $prefixDirsPsr4 = array (
+        'Brumann\\Polyfill\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/brumann/polyfill-unserialize/src',
+        ),
+    );
+
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
     );
@@ -13,7 +27,9 @@ class ComposerStaticInit2b64b6a5c6225ec23ee2bb9bae42ecab
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->classMap = ComposerStaticInit2b64b6a5c6225ec23ee2bb9bae42ecab::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInite9d012ee689dcaace04b3383ebe93482::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInite9d012ee689dcaace04b3383ebe93482::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInite9d012ee689dcaace04b3383ebe93482::$classMap;
 
         }, null, ClassLoader::class);
     }

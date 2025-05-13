@@ -1,4 +1,4 @@
-If you believe that you have found a security issue associated with the current release of this plugin, then please report it to the email address with local part security-reports-only and the domain updraftplus.com. If receipt of the email is not acknowledged within 3 working days, then you can try again and also use the inquiry form on the plugin's website.
+If you believe that you have found a security issue associated with the current release of this plugin, then please report it to the email address with local part security-reports-only and the domain teamupdraft.com. If receipt of the email is not acknowledged within 3 working days, then you can try again and also use the inquiry form on the plugin's website.
 
 Do not send emails on any other subject to this address. They will not be acknowledged, regardless of whether they contain pleas to do otherwise; there are inquiry forms and support forums available which are linked within the plugin and easy to find on the plugin website.
 
