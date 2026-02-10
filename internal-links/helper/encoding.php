@@ -63,6 +63,10 @@ class Encoding {
 		$pseudo = preg_replace('/\(\?\:\\\b\\\w\+\\\b\\\s\*\)\{(\d+)\}/', '{\1}', $regex);
 		$pseudo = preg_replace('/\(\?\:\\\b\\\w\+\\\b\\\s\*\){(\d+),}/', '{+\1}', $pseudo);
 		$pseudo = preg_replace('/\(\?\:\\\b\\\w\+\\\b\\\s\*\){(\d+),(\d+)}/', '{-\2}', $pseudo);
+		 // Handle simpler keywords without (?!ilj_)
+		 $pseudo = preg_replace('/\(\?\:\\\b\\\w\+\\\b\\\s\*\)\{(\d+),(\d+)\}/', '{-\2}', $pseudo);
+		 $pseudo = preg_replace('/\(\?\:\\\b\\\w\+\\\b\\\s\*\)\{(\d+),\}/', '{+\1}', $pseudo);
+		 $pseudo = preg_replace('/\(\?\:\\\b\\\w\+\\\b\\\s\*\)\{(\d+)\}/', '{\1}', $pseudo);
 		return $pseudo;
 	}
 
@@ -98,6 +102,17 @@ class Encoding {
 			$boundary_end   = '(?=$|\s)';
 		}
 
+		// Automatically skip "ilj_" words in gap matches
+		// Replace simple gap: (?:\b\w+\b\s*) with negative lookahead
+		$pattern = preg_replace_callback(
+			'/\(\?:\\\\b\\\\w\+\\\\b\\\\s\*\)/',
+			function() {
+				// Replace with: any word NOT starting with ilj_
+				return '(?:\b(?!ilj_)\w+\b\s*)';
+			},
+			$pattern
+		);
+
 		$masked_pattern = sprintf($phrase, $pattern, $boundary_start, $boundary_end);
 		return $masked_pattern;
 	}
@@ -132,5 +147,89 @@ class Encoding {
 			$pattern = preg_replace('/([^A-Za-z0-9-{}+.\s])/', '\\\\$1', $pattern);
 		}
 		return $pattern;
+	}
+
+	/**
+	 * Reverse the transformed pattern to a more readable format.
+	 *
+	 * @param  String $input Keyword fetched from DB
+	 * @return String
+	 */
+	public static function reverse_transformed_pattern($input) {
+		return preg_replace_callback(
+			'/\(\?:\|b\|w\+\|b\|s\*\)\{(\d+)(,(\d*))?\}/',
+			function ($matches) {
+				$start = (int) $matches[1];
+				$hasComma = isset($matches[2]) && '' !== $matches[2];
+				$end = isset($matches[3]) ? trim($matches[3]) : '';
+	
+				if ($hasComma) {
+					if ('' === $end) {
+						// Case: {3,} => {+3}
+						return ' {+'.$start.'}';
+					} else {
+						// Case: {1,3} => {-3} (assuming it always starts at 1)
+						return ' {-'.$end.'}';
+					}
+				} else {
+					// Case: {3} => {3}
+					return ' {'.$start.'}';
+				}
+			},
+			$input
+		);
+
+	}
+	
+	/**
+	 * Checks if the keyword is a structured regex keyword (Gap feature)
+	 *
+	 * @param  String $keyword
+	 * @return String
+	 */
+	public static function is_gap_style_regex($keyword) {
+		return strpos($keyword, '(?:|b|w+|b|s*)') !== false;
+	}
+	
+	/**
+	 * Escape special characters for mysql
+	 *
+	 * @param  String $pattern
+	 * @return String
+	 */
+	public static function escape_mysql_regex_specials($pattern) {
+		$specials = array('\\', '|', '+', '*', '.', '?', '^', '$', '(', ')', '[', ']', '{', '}', '/');
+		foreach ($specials as $char) {
+			$pattern = str_replace($char, '\\' . $char, $pattern);
+		}
+		return $pattern;
+	}
+		
+	/**
+	 * Formats a keyword to a pipe structure
+	 *
+	 * @param  String $pseudo
+	 * @return String
+	 */
+	public static function format_keyword_to_pipe_structure($pseudo) {
+		// Add a pipe before every non-word character (i.e., special char)
+		// \w matches a-z, A-Z, 0-9, and underscore. Everything else gets a `|` before it.
+		return preg_replace('/([^\w\s£€])/u', '\\|$1', $pseudo);
+	}
+	
+	/**
+	 * Escape selected regex characters in a keyword.
+	 *
+	 * @param  String $keyword
+	 * @return String
+	 */
+	public static function escape_selected_regex_chars($keyword) {
+		$specials = array('^', '$', '[', ']', '/');
+
+		foreach ($specials as $char) {
+			$keyword = str_replace($char, '\\' . $char, $keyword);
+		}
+
+		return $keyword;
 	}
 }

@@ -234,7 +234,7 @@ class IndexAsset {
 		if (self::ILJ_FULL_BUILD == $scope) {
 			$ilj_linkindex_table = $wpdb->prefix . LinkindexTemp::ILJ_DATABASE_TABLE_LINKINDEX_TEMP;
 		} elseif (self::ILJ_INDIVIDUAL_BUILD == $scope) {
-			$ilj_linkindex_table = $wpdb->prefix . LinkindexIndividualTemp::ILJ_DATABASE_TABLE_LINKINDEX_INDIVIDUAL_TEMP;
+			$ilj_linkindex_table = $wpdb->prefix . Linkindex::ILJ_DATABASE_TABLE_LINKINDEX;
 		}
 
 		$additional_query = '';

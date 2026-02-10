@@ -5,9 +5,9 @@ License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl.html
 Tags: seo, internal links, automatic linking, linkbuilding, onpage, auto linker, ux, link, links
 Requires at least: 5.9.0
-Tested up to: 6.8
+Tested up to: 6.9
 Requires PHP: 7.1.0
-Stable tag: 2.25.2
+Stable tag: 2.26.0
 
 Improve your SEO and your user experience through internal linkbuilding. Automated links between your posts based on a smart keyword configuration.
 
@@ -128,6 +128,17 @@ The Pro version also provides a direct import of __post (and term) titles__ or, 
 7. Import and Export Section - Here you can easily import and export plugin settings or your configured keywords.
 
 == Changelog ==
+
+= 2.26.0 - 10/Feb/2026 =
+* FEATURE: Internal import now supports non-hierarchical taxonomies such as product_tag. Developers can extend this via the ilj_allowed_import_tag_taxonomies filter.
+* FIX: Fix issue with gap linking unwanted characters.
+* FIX: Fixed duplicate checker not able to match keywords with gaps.
+* FIX: Outgoing links not working properly on instances when individual index builds are triggered.
+* FIX: Corrected output of option values and labels in “Exclude HTML areas from linking” setting to properly display HTML tags (e.g., <h1-6>, <strong>, <b>, <div>, etc.).
+* FIX: Prevent errors and deprecated code during plugin activation and uninstall.
+* FIX: ILJ Keyword metabox becoming unresponsive after adding a new tag or category.
+* TWEAK: Updated the Custom Links update message.
+* COMPATIBILITY: Update Freemius SDK to version 2.12.2.
 
 = 2.25.2 - 08//May/2025 =
 * FEATURE: Added a notice and duplicate list for repeated keywords during input.
@@ -302,4 +313,4 @@ Release Date: December 2nd, 2022
 For the complete changelog, please refer to [https://www.internallinkjuicer.com/changelog/](https://www.internallinkjuicer.com/changelog/).
 
 == Upgrade Notice ==
-* 2.25.2: A feature to check duplicate keywords. Various fixes, tweaks, and refactors. See the changelog for full details. A recommended update for all.
+* 2.26.0: Internal import now supports non-hierarchical taxonomies such as product_tag. Various fixes and tweaks. See the changelog for full details. A recommended update for all.

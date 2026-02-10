@@ -691,3 +691,29 @@
 .ilj-select2-container--classic.ilj-select2-container--open .ilj-select2-dropdown {
     border-color: #5897fb;
 }
+
+.ilj-select2-keyword-gap-badge {
+    font-family: monospace;
+    letter-spacing: -1px;
+    cursor: help;
+    padding: 0 5px;
+    border-radius: 10px;
+}
+
+.ilj-select2-gap-min {
+    color: #adc607;
+    border: 1px solid #d9f713;
+    background: #fafee2;
+}
+
+.ilj-select2-gap-max {
+    color: #ed4938;
+    border: 1px solid #f16d60;
+    background: #fdedeb;
+}
+
+.ilj-select2-gap-exact {
+    background: #fef9e7;
+    border: 1px solid #f6cd3d;
+    color: #f4c10d;
+}

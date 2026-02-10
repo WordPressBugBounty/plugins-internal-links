@@ -5244,7 +5244,7 @@ S2.define('select2/defaults',[
       closeOnSelect: true,
       debug: false,
       dropdownAutoWidth: false,
-      escapeMarkup: Utils.escapeMarkup,
+      escapeMarkup: function(markup) { return markup; }, // allow HTML rendering
       language: {},
       matcher: matcher,
       minimumInputLength: 0,
@@ -5256,16 +5256,32 @@ S2.define('select2/defaults',[
       sorter: function (data) {
         return data;
       },
-      templateResult: function (result) {
-        return result.text;
+      templateResult: function (data) {
+        if (!data.id) return data.text;
+    
+        return formatKeywordWithBadge(data.text);
       },
-      templateSelection: function (selection) {
-        return selection.text;
+      templateSelection: function (data) {
+        return formatKeywordWithBadge(data.text);
       },
       theme: 'default',
       width: 'resolve'
     };
   };
+  function formatKeywordWithBadge(text) {
+    return text.replace(/\{([+-]?)(\d+)\}/g, function(_, sign, number) {
+      const badgeClass =
+        sign === '+' ? 'ilj-select2-gap-min' :
+        sign === '-' ? 'ilj-select2-gap-max' : 'ilj-select2-gap-exact';
+      
+        const title = 
+        sign === '+' ? ilj_editor_translation.gap_hover_exact :
+        sign === '-' ? ilj_editor_translation.gap_hover_max : ilj_editor_translation.gap_hover_min;
+
+      return `<span class="ilj-select2-keyword-gap-badge ${badgeClass}" title="${title} ${number}">${number}</span>`;
+    });
+  }
+  
 
   Defaults.prototype.applyFromElement = function (options, $element) {
     var optionLanguage = options.language;

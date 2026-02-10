@@ -97,9 +97,32 @@ function ilj_menu_settings_toggle_fields(toggle, inverse_fields, attribute) {
 }
 (function ($) {
   $(function () {
-    jQuery('#ilj_settings_field_editor_role, #ilj_settings_field_index_generation, #ilj_settings_field_whitelist, #ilj_settings_field_taxonomy_whitelist, #ilj_settings_field_limit_taxonomy_list, #ilj_settings_field_keyword_order, #ilj_settings_field_no_link_tags, #ilj_settings_field_custom_fields_to_link_post, #ilj_settings_field_custom_fields_to_link_term').ilj_select2({
+    jQuery('#ilj_settings_field_editor_role, #ilj_settings_field_index_generation, #ilj_settings_field_whitelist, #ilj_settings_field_taxonomy_whitelist, #ilj_settings_field_limit_taxonomy_list, #ilj_settings_field_keyword_order, #ilj_settings_field_custom_fields_to_link_post, #ilj_settings_field_custom_fields_to_link_term').ilj_select2({
       minimumResultsForSearch: 10,
       width: '50%'
+    });
+    jQuery('#ilj_settings_field_no_link_tags').ilj_select2({
+      minimumResultsForSearch: 10,
+      width: '50%',
+      escapeMarkup: function (markup) {
+        var replaceMap = {
+          '\\': '&#92;',
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          '"': '&quot;',
+          '\'': '&#39;',
+          '/': '&#47;'
+        };
+
+        // Do not try to escape the markup if it's not a string
+        if (typeof markup !== 'string') {
+          return markup;
+        }
+        return String(markup).replace(/[&<>"'\/\\]/g, function (match) {
+          return replaceMap[match];
+        });
+      }
     });
 
     /**

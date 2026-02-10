@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Internal Link Juicer
  * Plugin URI: https://www.internallinkjuicer.com
- * Version: 2.25.2
+ * Version: 2.26.0
  * Description: A performant solution for high class internal linkbuilding automation.
  * Author: TeamUpdraft
  * Author URI: https://www.internallinkjuicer.com
@@ -33,6 +33,14 @@ namespace ILJ;
 
 use ILJ\Core\App;
 
+// ✅ Bail out early if uninstalling, before loading any plugin logic
+if (defined('WP_UNINSTALL_PLUGIN')) {
+	if (!defined('ACTION_SCHEDULER_DISABLE')) {
+		define('ACTION_SCHEDULER_DISABLE', true);
+	}
+	return;
+}
+
 if (!function_exists('add_filter')) {
 	header('Status: 403 Forbidden');
 	header('HTTP/1.1 403 Forbidden');
@@ -40,7 +48,7 @@ if (!function_exists('add_filter')) {
 }
 
 if (!defined('ILJ_VERSION')) {
-	define('ILJ_VERSION', '2.25.2');
+	define('ILJ_VERSION', '2.26.0');
 }
 
 if (!defined('ILJ_FILE')) {

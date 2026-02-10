@@ -307,7 +307,7 @@ class Tools extends AbstractMenuPage {
 					'class' => 'title',
 				),
 				array(
-					'title' => __('Post tags', 'internal-links'),
+					'title' => __('Keywords from Tags', 'internal-links'),
 					'class' => 'tags',
 				),
 			),

@@ -220,8 +220,9 @@ class Link {
 			$query .= " AND (main_type IN ({$this->get_sql_escaped_main_types()}) AND sub_type IN ({$this->get_sql_escaped_sub_types()}) )";
 		}
 
-		$query .= "	ORDER BY {$this->get_sort_by()} {$this->get_sort_direction()} LIMIT %d OFFSET %d;";
-
+		$query .= " AND (incoming_links > 0 OR outgoing_links > 0)";
+		$query .= " ORDER BY {$this->get_sort_by()} {$this->get_sort_direction()} LIMIT %d OFFSET %d;";
+		
 		if (!empty($this->args['search'])) {
 			$prepared_query = $wpdb->prepare(
 				// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- Already prepared.

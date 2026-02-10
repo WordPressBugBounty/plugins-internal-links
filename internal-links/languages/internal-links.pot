@@ -1,4 +1,4 @@
-# Copyright (C) 2025 internal-links
+# Copyright (C) 2026 internal-links
 # This file is distributed under the same license as the internal-links package.
 msgid ""
 msgstr ""
@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: Team Updraft <support@internallinkjuicer.com>\n"
 "Last-Translator: Team Updraft <support@internallinkjuicer.com>\n"
-"POT-Creation-Date: 2025-05-13 13:46+0000\n"
+"POT-Creation-Date: 2026-02-10 10:24+0000\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/internal-links\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
@@ -17,15 +17,15 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/wp-internal-linkjuicer.php:149
+#: src/wp-internal-linkjuicer.php:157
 msgid "The expected file %s is missing from your Internal Link Juicer installation."
 msgstr ""
 
-#: src/wp-internal-linkjuicer.php:149
+#: src/wp-internal-linkjuicer.php:157
 msgid "Most likely, WordPress did not correctly unpack the plugin when installing it."
 msgstr ""
 
-#: src/wp-internal-linkjuicer.php:149
+#: src/wp-internal-linkjuicer.php:157
 msgid "You should de-install and then re-install the plugin (your settings and data will be retained)."
 msgstr ""
 
@@ -315,15 +315,15 @@ msgstr ""
 msgid "Maximize compatibility with builders, themes and plugins enabling linking from <strong>custom fields</strong>."
 msgstr ""
 
-#: src/core/app.php:1105, src/backend/menupage/settings.php:41, src/backend/menupage/settings.php:160
+#: src/core/app.php:1108, src/backend/menupage/settings.php:41, src/backend/menupage/settings.php:160
 msgid "Settings"
 msgstr ""
 
-#: src/core/app.php:1140
+#: src/core/app.php:1143
 msgid "The security check failed; try refreshing the page."
 msgstr ""
 
-#: src/core/app.php:1150
+#: src/core/app.php:1153
 msgid "You are not allowed to run this command."
 msgstr ""
 
@@ -403,15 +403,15 @@ msgstr ""
 msgid "Keyword %1$s has %2$d duplicates."
 msgstr ""
 
-#: src/database/keywords.php:111
+#: src/database/keywords.php:120
 msgid "Show Duplicate Details"
 msgstr ""
 
-#: src/database/keywords.php:117
+#: src/database/keywords.php:126
 msgid "See More"
 msgstr ""
 
-#: src/database/keywords.php:119, src/templates/notices/horizontal-notice.php:65, src/templates/notices/horizontal-notice.php:63
+#: src/database/keywords.php:128, src/templates/notices/horizontal-notice.php:65, src/templates/notices/horizontal-notice.php:63
 msgid "Dismiss"
 msgstr ""
 
@@ -507,11 +507,11 @@ msgstr ""
 msgid "Show usage"
 msgstr ""
 
-#: src/helper/ajax.php:312, src/helper/ajax.php:394, src/helper/ajax.php:815
+#: src/helper/ajax.php:312, src/helper/ajax.php:394, src/helper/ajax.php:817
 msgid "Source"
 msgstr ""
 
-#: src/helper/ajax.php:310, src/helper/ajax.php:394, src/posttypes/customlinks.php:285
+#: src/helper/ajax.php:310, src/helper/ajax.php:394, src/posttypes/customlinks.php:287
 msgid "Target"
 msgstr ""
 
@@ -531,7 +531,7 @@ msgstr ""
 msgid "Upgrade to Pro and view all"
 msgstr ""
 
-#: src/helper/ajax.php:394, src/helper/ajax.php:816
+#: src/helper/ajax.php:394, src/helper/ajax.php:818
 msgid "Source type"
 msgstr ""
 
@@ -612,7 +612,7 @@ msgstr ""
 msgid "Keywords (ILJ)"
 msgstr ""
 
-#: src/helper/export.php:33, src/backend/menupage/dashboard.php:84, src/backend/menupage/keywords-editor/table.php:115, src/backend/menupage/keywords-editor/table.php:217
+#: src/helper/export.php:33, src/backend/menupage/dashboard.php:84, src/backend/menupage/keywords-editor/table.php:116, src/backend/menupage/keywords-editor/table.php:221
 msgid "Title"
 msgstr ""
 
@@ -643,108 +643,124 @@ msgstr ""
 msgid "Help"
 msgstr ""
 
-#: src/posttypes/customlinks.php:173, src/posttypes/customlinks.php:183, src/posttypes/customlinks.php:187, src/backend/menupage/customlinks.php:20, src/backend/menupage/dashboard.php:312, src/backend/menupage/keywords-editor/table.php:179
+#: src/posttypes/customlinks.php:175, src/posttypes/customlinks.php:185, src/posttypes/customlinks.php:189, src/backend/menupage/customlinks.php:20, src/backend/menupage/dashboard.php:312, src/backend/menupage/keywords-editor/table.php:183
 msgid "Custom Links"
 msgstr ""
 
-#: src/posttypes/customlinks.php:174
+#: src/posttypes/customlinks.php:176
 msgid "Custom link"
 msgstr ""
 
-#: src/posttypes/customlinks.php:175, src/posttypes/customlinks.php:177, src/posttypes/customlinks.php:179
+#: src/posttypes/customlinks.php:177, src/posttypes/customlinks.php:179, src/posttypes/customlinks.php:181
 msgid "Add link"
 msgstr ""
 
-#: src/posttypes/customlinks.php:176
+#: src/posttypes/customlinks.php:178
 msgid "All links"
 msgstr ""
 
-#: src/posttypes/customlinks.php:178
+#: src/posttypes/customlinks.php:180
 msgid "Edit link"
 msgstr ""
 
-#: src/posttypes/customlinks.php:180
+#: src/posttypes/customlinks.php:182
 msgid "Search links"
 msgstr ""
 
-#: src/posttypes/customlinks.php:181, src/posttypes/customlinks.php:182
+#: src/posttypes/customlinks.php:183, src/posttypes/customlinks.php:184
 msgid "No Links Found"
 msgstr ""
 
-#: src/posttypes/customlinks.php:189
+#: src/posttypes/customlinks.php:191
 msgid "Custom links for automatic linking."
 msgstr ""
 
-#: src/posttypes/customlinks.php:232
+#: src/posttypes/customlinks.php:234
 msgid "Link target"
 msgstr ""
 
-#: src/posttypes/customlinks.php:233
+#: src/posttypes/customlinks.php:235
 msgid "Nofollow"
 msgstr ""
 
-#: src/posttypes/customlinks.php:234
+#: src/posttypes/customlinks.php:236
 msgid "New window"
 msgstr ""
 
-#: src/posttypes/customlinks.php:254
+#: src/posttypes/customlinks.php:256
 msgid "No URL set."
 msgstr ""
 
-#: src/posttypes/customlinks.php:294
+#: src/posttypes/customlinks.php:296
 msgid "Link options"
 msgstr ""
 
-#: src/posttypes/customlinks.php:303, src/posttypes/customlinks.php:399, src/backend/menupage/tour/settings.php:40
+#: src/posttypes/customlinks.php:305, src/posttypes/customlinks.php:401, src/backend/menupage/tour/settings.php:40
 msgid "Save"
 msgstr ""
 
-#: src/posttypes/customlinks.php:393
+#: src/posttypes/customlinks.php:395
 msgid "No permission to edit links."
 msgstr ""
 
-#: src/posttypes/customlinks.php:405
+#: src/posttypes/customlinks.php:407
 msgid "Are you sure?"
 msgstr ""
 
-#: src/posttypes/customlinks.php:413
+#: src/posttypes/customlinks.php:415
 msgid "Delete"
 msgstr ""
 
-#: src/posttypes/customlinks.php:438
+#: src/posttypes/customlinks.php:440
 msgid "Target URL"
 msgstr ""
 
-#: src/posttypes/customlinks.php:449
+#: src/posttypes/customlinks.php:451
 msgid "The URL that should get linked."
 msgstr ""
 
-#: src/posttypes/customlinks.php:454
+#: src/posttypes/customlinks.php:456
 msgid "Link status"
 msgstr ""
 
-#: src/posttypes/customlinks.php:459
+#: src/posttypes/customlinks.php:461
 msgid "Active"
 msgstr ""
 
-#: src/posttypes/customlinks.php:462, src/posttypes/customlinks.php:610
+#: src/posttypes/customlinks.php:464, src/posttypes/customlinks.php:612
 msgid "Inactive"
 msgstr ""
 
-#: src/posttypes/customlinks.php:489
+#: src/posttypes/customlinks.php:491
 msgid "Add nofollow attribute"
 msgstr ""
 
-#: src/posttypes/customlinks.php:494
+#: src/posttypes/customlinks.php:496
 msgid "The custom URL gets linked with <code>rel=\"nofollow\"</code> attribute."
 msgstr ""
 
-#: src/posttypes/customlinks.php:501
+#: src/posttypes/customlinks.php:503
 msgid "Open in new window"
 msgstr ""
 
-#: src/posttypes/customlinks.php:505
+#: src/posttypes/customlinks.php:507
 msgid "The link to the custom URL gets opened in a new tab."
+msgstr ""
+
+#: src/posttypes/customlinks.php:651, src/posttypes/customlinks.php:652
+msgid "The Custom Link has been updated."
+msgstr ""
+
+#: src/posttypes/customlinks.php:653
+msgid "The Custom Link has been published."
+msgstr ""
+
+#: src/posttypes/customlinks.php:654
+msgid "The Custom Link has been saved."
+msgstr ""
+
+#: src/posttypes/customlinks.php:655
+msgid "The Custom Link draft has been updated."
 msgstr ""
 
 #: src/backend/menupage/dashboard.php:37, src/backend/menupage/dashboard.php:117
@@ -1185,7 +1201,7 @@ msgid "Post titles"
 msgstr ""
 
 #: src/backend/menupage/tools.php:317
-msgid "Post tags"
+msgid "Keywords from Tags"
 msgstr ""
 
 #: src/backend/menupage/tools.php:334
@@ -1856,27 +1872,27 @@ msgstr ""
 msgid "All Whitelisted Taxonomies"
 msgstr ""
 
-#: src/backend/menupage/keywords-editor/table.php:121
+#: src/backend/menupage/keywords-editor/table.php:122
 msgid "Taxonomy"
 msgstr ""
 
-#: src/backend/menupage/keywords-editor/table.php:119
+#: src/backend/menupage/keywords-editor/table.php:120
 msgid "Post Type"
 msgstr ""
 
-#: src/backend/menupage/keywords-editor/table.php:124
+#: src/backend/menupage/keywords-editor/table.php:125
 msgid "Keywords"
 msgstr ""
 
-#: src/backend/menupage/keywords-editor/table.php:167
+#: src/backend/menupage/keywords-editor/table.php:171
 msgid "Posts"
 msgstr ""
 
-#: src/backend/menupage/keywords-editor/table.php:173
+#: src/backend/menupage/keywords-editor/table.php:177
 msgid "Terms"
 msgstr ""
 
-#: src/backend/menupage/keywords-editor/table.php:217
+#: src/backend/menupage/keywords-editor/table.php:221
 msgid "Table ordered by Title."
 msgstr ""
 
